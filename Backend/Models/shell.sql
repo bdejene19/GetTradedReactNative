@@ -1,0 +1,26 @@
+DROP DATABASE IF EXISTS mainDB;
+
+CREATE DATABASE mainDB;
+
+use mainDB;
+
+CREATE TABLE users(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+)
+
+CREATE TABLE work_images(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    file_path VARCHAR(1000),
+    FOREIGN KEY (file_path)
+    REFERENCES users(id) 
+    ON DELETE SET NULL,
+)
+
+CREATE TABLE work_locations(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    location VARCHAR(200), 
+    FOREIGN KEY (location)
+    REFERENCES users(id),
+    
+)
