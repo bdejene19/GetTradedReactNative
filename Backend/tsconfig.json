@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+      "preserveConstEnums": true
+    },
+    "exclude": ["node_modules", "**/*.spec.ts"],
+  }

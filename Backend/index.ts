@@ -1,3 +1,5 @@
+import { require } from "./Globals/GlobalDeclarations";
+
 require('dotenv').config();
 
 const sequelize = require('./config/connection');

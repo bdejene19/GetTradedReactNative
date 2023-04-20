@@ -1,5 +1,6 @@
 INSERT INTO users(name, password) VALUES
-    ("VALUE", "STARTS");
+    ("Bemnet's Carpentry", "BemmyBoy"),
+    ("Teddy's Conquest", "tedbundy");
 
 
 INSERT INTO locations(user_id, location) VALUES

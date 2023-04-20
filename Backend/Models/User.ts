@@ -1,6 +1,6 @@
-import { timeStamp } from 'console';
 import { Model, DataTypes, UUIDV4 } from 'sequelize';
-
+import { require } from '../Globals/GlobalDeclarations';
+const sequelize = require('../config/connection')
 const bcrypt = require('bcrypt');
 
 class User extends Model {
@@ -39,7 +39,6 @@ User.init({
         beforeCreate: async (newUser) => {
             try {
                 newUser.password = await bcrypt.hash(newUser.password, 10);
-                return newUser;
             } catch(e) {
                 console.log('error creating user while hashing password: ', e);
             }
@@ -47,9 +46,7 @@ User.init({
         beforeUpdate: async (user) => {
                 try {
                     if (user.changed('password')) {
-
                         user.password = await bcrypt.hash(user.password, 10);
-                        return user
                     }
                 } catch(e) {
                     console.log('error creating user while hashing password: ', e);
@@ -64,3 +61,5 @@ User.init({
     underscored: true,
     modelName: 'user'
 })
+
+export default User;
