@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { CommonTextInput } from '../Common/CommonInput'
@@ -39,6 +39,7 @@ export const CreateAccount = ({ navigation }) => {
         }
     }
     const updateSecureText = () => {
+        return;
     }
     const RenderInputSecure = (props: { secure?: boolean, onChange?: () => void}) => {
         return (
@@ -87,9 +88,6 @@ export const CreateAccount = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    pageTitle: {
-
-    },
     mainContent: {
         borderColor: 'lightgrey',
         backgroundColor: 'lightgrey',

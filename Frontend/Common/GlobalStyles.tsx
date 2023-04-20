@@ -52,6 +52,21 @@ export const GenStyle = StyleSheet.create({
     }
 })
 
+export const FontSize = StyleSheet.create({
+    pageHeader: {
+        fontSize: 22
+    },
+    subHeader: {
+        fontSize: 18,
+    },
+    regText: {
+        fontSize: 16,
+    },
+
+    smallText: {
+        fontSize: 12,
+    }
+})
 export const DarkModeI = StyleSheet.create({
     MainText: {
         color: 'white',

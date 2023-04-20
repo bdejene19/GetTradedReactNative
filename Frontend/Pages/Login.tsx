@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import { CommonTextInput } from '../Common/CommonInput'
-import { Button, Icon } from '@ui-kitten/components'
+import { Button } from '@ui-kitten/components'
 import { GenStyle, LightMode } from '../Common/GlobalStyles'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 
 export const Login = ({navigation}) => {
   return (
