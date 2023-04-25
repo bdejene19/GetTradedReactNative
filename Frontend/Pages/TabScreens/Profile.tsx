@@ -1,9 +1,11 @@
 import { View, StyleSheet } from 'react-native'
 import React from 'react'
-import ProfileContact from '../Components/ProfileContact'
-import AboutBusiness from '../Components/AboutBusiness'
-import GalleryScroll from '../Components/GalleryScroll'
+import ProfileContact from '../../Components/ProfileContact'
+import AboutBusiness from '../../Components/AboutBusiness'
+import GalleryScroll from '../../Components/GalleryScroll'
+
 import { ViewStyle } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -18,8 +20,9 @@ const GalleryStyle = StyleSheet.create({
 export default function Profile() {
 
   return (
-    <View style={styles.pageStyle}>
+    <ScrollView style={styles.pageStyle}>
         <ProfileContact businessName='Bemnet Dejene' email='' phone='' profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
+        
         <AboutBusiness content='My About business Section'/>
         <GalleryScroll 
           label='Our Work' 
@@ -30,12 +33,14 @@ export default function Profile() {
           scrollHorizontal={true} 
           imgCardStyle={{ padding: 100, height: 300, width: 350 }}
         />
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   pageStyle: {
+    backgroundColor: '#FFE19C',
+    height: '100%',
     rowGap: 25,
 
   }

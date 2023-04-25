@@ -1,11 +1,13 @@
 import { View, Text } from 'react-native'
 import React, { useState } from 'react'
-import { Locator } from '../Common/Locator'
-import { TextResources } from '../Common/GlobalDeclarations'
+
 import { Button } from '@ui-kitten/components'
 import { ScrollView } from 'react-native-gesture-handler'
-import { GenStyle } from '../Common/GlobalStyles'
-import ImageUploader from '../Components/ImageUploader'
+import { Locator } from '../../Common/Locator'
+import { TextResources } from '../../Common/GlobalDeclarations'
+import ImageUploader from '../../Components/ImageUploader'
+import { GenStyle } from '../../Common/GlobalStyles'
+
 
 export default function WorkLocations() {
   const [locations, setLocations] = useState<string[]>([])

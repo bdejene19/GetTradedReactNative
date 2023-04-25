@@ -45,6 +45,9 @@ export const GenStyle = StyleSheet.create({
         bottom: '10%',
     },
 
+    stackScreenHeaderHeight: {
+        height: 50,
+    },
     circle: {
         borderRadius: 100,
         width: '45%',

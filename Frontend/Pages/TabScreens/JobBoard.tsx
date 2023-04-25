@@ -1,7 +1,7 @@
 import { View, ViewStyle } from 'react-native'
 import React from 'react'
-import JobCard from '../Components/JobCard'
 import { StyleSheet } from 'react-native'
+import JobCard from '../../Components/JobCard'
 
 const cardStyle: ViewStyle = {
     borderRadius: 15,
@@ -18,11 +18,11 @@ const cardStyle: ViewStyle = {
 export default function JobBoard() {
   return (
     <View style={styles.cardContainer}>
-        <JobCard header='Carpenter' bottomColor='blue' cardStyle={cardStyle} onPress={() => {}}/>
-        <JobCard header='Landscaper' cardStyle={cardStyle} bottomColor={'lightgreen'} onPress={() => {}}/>
-        <JobCard header='Plumber' bottomColor='lightblue' cardStyle={cardStyle} onPress={() => {}}/>
-        <JobCard header='Service Worker' cardStyle={cardStyle} onPress={() => {}}/>
-        <JobCard header='Electrician' cardStyle={cardStyle} onPress={() => {}}/>
+        <JobCard header='Carpenter' bottomColor='blue' cardStyle={cardStyle} onPress={() => null}/>
+        <JobCard header='Landscaper' cardStyle={cardStyle} bottomColor={'lightgreen'} onPress={() => null}/>
+        <JobCard header='Plumber' bottomColor='lightblue' cardStyle={cardStyle} onPress={() => null}/>
+        <JobCard header='Service Worker' cardStyle={cardStyle} onPress={() => null}/>
+        <JobCard header='Electrician' cardStyle={cardStyle} onPress={() => null}/>
     </View>
   )
 }

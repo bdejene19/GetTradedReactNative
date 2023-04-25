@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gesture-handler'
-import { CommonTextInput } from '../Common/CommonInput'
+import { CommonTextInput } from '../../Common/CommonInput'
 import { Button, Icon, Input, Layout } from '@ui-kitten/components'
-import { GenStyle } from '../Common/GlobalStyles'
+import { GenStyle } from '../../Common/GlobalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import { TextResources } from '../Common/GlobalDeclarations'
-import MultiBubbleSelect from '../Components/MultiBubbleSelect'
+import { TextResources } from '../../Common/GlobalDeclarations'
+import MultiBubbleSelect from '../../Components/MultiBubbleSelect'
 
 interface Password {
     pswd: string | boolean;
