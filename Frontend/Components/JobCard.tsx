@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ViewStyle } from 'react-native'
 import React from 'react'
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface CardProps {
     header: string;
@@ -12,13 +12,10 @@ interface CardProps {
 }
 export default function JobCard(props: CardProps) {
   return (
-    <TouchableHighlight style={props.cardStyle} onPress={props.onPress}>
-        <> 
+    <TouchableOpacity style={props.cardStyle} onPress={props.onPress}>
         <Text style={styles.headerStyle}>{props.header}</Text>
-
         <View style={[styles.bottomStyle, { backgroundColor: props.bottomColor}]}></View>
-        </>
-    </TouchableHighlight>
+    </TouchableOpacity>
   )
 }
 

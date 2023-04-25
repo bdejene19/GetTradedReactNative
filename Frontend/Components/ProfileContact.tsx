@@ -29,14 +29,17 @@ const styles = StyleSheet.create({
     contactContainer: {
         width: '100%',
         padding: '3.5%',
-        borderRadius: 15,
-        backgroundColor: 'snow',
-        shadowColor: 'black',
-        borderColor: 'grey',
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+        
+        backgroundColor: '#F47742',
+        borderColor: '#F47742',
         borderWidth: 1,
         rowGap: 15,
+        /**
         shadowOpacity: 1,
         shadowOffset: { height: 3, width: 3},
+         */
     }, 
     header: {
       fontWeight: '700',

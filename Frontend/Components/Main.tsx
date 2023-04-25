@@ -2,12 +2,15 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Profile from '../Pages/Profile';
-import MessageBoard from '../Pages/MessageBoard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faDashboard, faHome, faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faDashboard, faHome, faMessage, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import JobBoard from '../Pages/TabScreens/JobBoard';
+import Profile from '../Pages/TabScreens/Profile';
+import MessageBoard from '../Pages/TabScreens/MessageBoard';
+import { TabRootParamList, TabRoutes } from '../Pages/types';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ProfileHeaderLeft, ProfileHeaderRight } from './tabscreenHeaders/ProfileHeader';
 
-const Tab = createBottomTabNavigator();
 const ProfileIcon = () => (
     <FontAwesomeIcon icon={faHome}/>
 )
@@ -15,29 +18,40 @@ const MessageIcon = () => (
     <FontAwesomeIcon icon={faMessage}/>
 )
 
+
+
 const JobsIcon = () => (
     <FontAwesomeIcon icon={faDashboard}/>
 )
+
+const Tab = createBottomTabNavigator<TabRootParamList>();
 export default function Main() {
   return (
     <NavigationContainer independent={true}>
         <Tab.Navigator>
             <Tab.Screen 
-                name='Profile'
+                name={TabRoutes.PROFILE}
                 component={Profile}
                 
-                options={{ headerShown: false, tabBarIcon: ProfileIcon}}
+                options={{ 
+                    headerRight: ProfileHeaderRight,
+                    headerTitle: '',
+                    headerLeft: ProfileHeaderLeft,
+                    headerShadowVisible: false,
+                    headerStyle: {
+                    backgroundColor: '#F47742',
+                },  tabBarIcon: ProfileIcon}}
             />
             <Tab.Screen 
-                name='Jobs'
-                component={Profile}
-                options={{ headerShown: false, tabBarIcon: JobsIcon}}
+                name={TabRoutes.JOBS}
+                component={JobBoard}
+                options={{ headerTitle: '',  tabBarIcon: JobsIcon}}
             />
             <Tab.Screen 
-                name='Messages' 
+                name={TabRoutes.MESSAGES} 
+                
                 component={MessageBoard}
-                options={{ headerShown: false, tabBarIcon: MessageIcon}}
-
+                options={({ navigation,}) => ({ headerShown: false, tabBarIcon: MessageIcon })}
             />
         </Tab.Navigator>
     </NavigationContainer>

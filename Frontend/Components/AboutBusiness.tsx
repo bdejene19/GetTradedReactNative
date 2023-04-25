@@ -23,12 +23,11 @@ const styles = StyleSheet.create({
     aboutContainer: {
         rowGap: 7,
         padding: '3.5%',
-        borderRadius: 15,
-        backgroundColor: 'snow',
-        shadowColor: 'black',
-        borderColor: 'grey',
-        borderWidth: 1,
-        shadowOpacity: 1,
-        shadowOffset: { height: 3, width: 3},
+        width: '95%',
+        alignSelf: 'center',
+        height: 100,
+        maxHeight: 175,
+        marginVertical: 30,
+        backgroundColor: 'white',
     }
 })

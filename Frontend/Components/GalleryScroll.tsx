@@ -15,8 +15,16 @@ export default function GalleryScroll(props: GalleryScrollProps) {
   return (
     <View style={[GenStyle.fullWidth, { borderColor: 'black', borderWidth: 3}]}>
         {props.label ? <Text>{props.label}</Text> : null}
-        <ScrollView style={{flexDirection: 'row',  columnGap: 30, width: '100%'}} horizontal={props.scrollHorizontal}>
-            {props.galleryImgs?.map(img => (<View key='any' style={{padding: 30, width: '100%'}}><Image key={img} source={{uri: img}} alt={img}/></View>))}
+        <ScrollView 
+          horizontal={true} 
+          style={{flexDirection: 'row',  width: '100%', columnGap: 30}} 
+          decelerationRate={0.9}
+          snapToInterval={150}
+          snapToAlignment={"center"}
+          showsHorizontalScrollIndicator={false}
+          disableIntervalMomentum={true}
+        >
+            {props.galleryImgs?.map(img => <Image key={img} style={{ width: 325, height: 150, shadowColor: 'white', shadowOffset: {height: 5, width: 5} }} source={{uri: img}} alt={img}/>)}
         </ScrollView>
     </View>
 
