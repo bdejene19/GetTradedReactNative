@@ -2,15 +2,24 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { StyleSheet, Text, View } from "react-native";
-import { CreateAccount } from "./Pages/CreateAccount";
-import { Login } from "./Pages/Login";
 import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import WorkLocations from "./Pages/WorkLocations";
 import Main from "./Components/Main";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { CreateAccount } from "./Pages/StackScreens/CreateAccount";
+import WorkLocations from "./Pages/StackScreens/WorkLocations";
+import { Login } from "./Pages/StackScreens/Login";
+import { StackRootParamList, StackLoginRoutes } from "./Pages/types";
+import ChatInteraction from "./Pages/StackScreens/ChatInteraction";
 
-const Stack = createNativeStackNavigator();
-
+const Stack = createNativeStackNavigator<StackRootParamList>();
+const DrawerMenuIcon = () => (
+  <TouchableOpacity onPress={() => {}}>
+    <FontAwesomeIcon icon={faBars} />
+  </TouchableOpacity>
+);
 export default function App() {
   let loginStyle = {
     headerStyle: {},
@@ -26,13 +35,17 @@ export default function App() {
         <NavigationContainer independent={true}>
           <Stack.Navigator>
             <Stack.Screen
-              name="Login"
-              options={({ route, navigation }) => ({})}
+              name={StackLoginRoutes.LOGIN}
+              options={({ route, navigation }) => ({
+                headerBackTitleVisible: false,
+                headerBackVisible: false,
+                headerBackButtonMenuEnabled: false,
+              })}
               component={Login}
             />
 
             <Stack.Screen
-              name="Create Account"
+              name={StackLoginRoutes.CREATE_ACCOUNT}
               options={({ route, navigation }) => ({
                 title: "Create Account",
                 contentStyle: loginStyle.screenStyle,
@@ -40,7 +53,7 @@ export default function App() {
               component={CreateAccount}
             />
             <Stack.Screen
-              name="Work Locations"
+              name={StackLoginRoutes.WORK_LOCATIONS}
               options={({ route, navigation }) => ({
                 title: "Locations",
                 contentStyle: loginStyle.screenStyle,
@@ -48,11 +61,20 @@ export default function App() {
               component={WorkLocations}
             />
             <Stack.Screen
-              name="Main"
+              name={StackLoginRoutes.MAIN}
               options={({ route, navigation }) => ({
-                contentStyle: loginStyle.screenStyle,
-              })}
+                  title: "",
+                  headerShown: false,
+                })}
               component={Main}
+            />
+             <Stack.Screen
+              name={StackLoginRoutes.CHAT}
+              options={({ route, navigation }) => ({
+                  title: "",
+                  headerShown: false,
+                })}
+              component={ChatInteraction}
             />
           </Stack.Navigator>
         </NavigationContainer>

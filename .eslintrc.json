@@ -20,5 +20,8 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "array-element-newline": "error",
+        
+
     }
 }
