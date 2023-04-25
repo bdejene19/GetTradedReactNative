@@ -4,11 +4,11 @@ import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture
 import { Input } from '@ui-kitten/components'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faPencilSquare, faPenToSquare, faSearch } from '@fortawesome/free-solid-svg-icons'
-import MessageThread from '../../Components/MessageThread'
 import { TextResources } from '../../Common/GlobalDeclarations'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StackMsgRoutes, StackMsgParamList } from '../types'
 import ChatInteraction from '../StackScreens/ChatInteraction'
+import MessageThread from '../../Components/messages/MessageThread'
 
 const MessageStackNavigator = createNativeStackNavigator<StackMsgParamList>();
 export default function MessageBoard({ navigation, route }) {

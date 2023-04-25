@@ -3,9 +3,11 @@ export namespace TextResources{
         NAME = 'Name',
         PASSWORD = 'Password',
         REPEAT_PASS = 'Repeat Password',
+        PHONE = 'Phone',
         EMAIL = 'Email',
         BUSINESS = 'Business Name',
         SEARCH = 'Search',
+        CONTACT = 'Contact'
     }
 
     export enum ButtonStrings {
@@ -28,6 +30,7 @@ export namespace TextResources{
         typeSelection = "Select how you would like to be found (up to 3):",
         locations = "What locations would you work at?"
     }
+    
 }
 
 export namespace ColorResources {
@@ -35,6 +38,5 @@ export namespace ColorResources {
         PRIMARY = '',
         SECONDARY = '',
         TERTIARY = '',
-        
     }
 }
