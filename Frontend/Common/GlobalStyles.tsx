@@ -61,6 +61,7 @@ export const FontSize = StyleSheet.create({
     },
     subHeader: {
         fontSize: 18,
+        fontWeight: '700'
     },
     regText: {
         fontSize: 16,

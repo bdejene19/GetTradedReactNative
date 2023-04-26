@@ -5,7 +5,7 @@ import { FontSize, GenStyle } from '../../Common/GlobalStyles';
 import { TextResources } from '../../Common/GlobalDeclarations';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faEnvelope, faMailBulk, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faMailBulk, faPencil, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface AboutProps {
@@ -38,7 +38,12 @@ export default function BusinessContact(props: ContactProps) {
     }
   return (
     <View style={[GenStyle.fullWidth, styles.contactContainer]}>
-        <Text style={[FontSize.subHeader, {fontWeight: '700', width: '100%'}]}>{TextResources.FormStrings.CONTACT}</Text>
+        <View style={[styles.contactHeader]}>
+            <Text style={[FontSize.subHeader, {fontWeight: '700', width: '90%'}]}>{TextResources.FormStrings.CONTACT}</Text>
+            <TouchableOpacity onPress={() => {}}>
+                <FontAwesomeIcon icon={faPencil} style={{width: '10%'}}/>
+            </TouchableOpacity>
+        </View>
         <Shortcut key={TextResources.FormStrings.PHONE} icon={faPhone} onPress={() =>  quickURLAction("tel", props.phone)}/>
         <Shortcut key={TextResources.FormStrings.EMAIL} icon={faEnvelope} onPress={() => quickURLAction("email", props.email)}/>
         <Shortcut key={TextResources.FormStrings.PHONE} icon={faPhone} onPress={() =>  quickURLAction("email", props.phone)}/>
@@ -60,5 +65,8 @@ const styles = StyleSheet.create({
         marginVertical: 30,
         backgroundColor: 'white',
         justifyContent: 'space-evenly'
+    },
+    contactHeader: {
+        flexDirection: 'row',
     }
 })

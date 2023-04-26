@@ -8,7 +8,7 @@ export enum StackLoginRoutes {
 }
 
 export enum StackMsgRoutes {
-    MESSAGES = 'Messages',
+    MESSAGE_BOARD = 'Message Board',
     CHAT = 'Chat',
 }
 export enum TabRoutes {
@@ -37,7 +37,7 @@ export type TabRootParamList = {
 }
 
 export type StackMsgParamList = {
-    [StackMsgRoutes.MESSAGES]: undefined,
+    [StackMsgRoutes.MESSAGE_BOARD]: undefined,
     [StackMsgRoutes.CHAT]: undefined,
 
 }

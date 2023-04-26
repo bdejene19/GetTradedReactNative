@@ -22,7 +22,7 @@ export default function GalleryScroll(props: GalleryScrollProps) {
           snapToAlignment={"center"}
           snapToInterval={360}
         >
-            {props.galleryImgs?.map(img => <ImageBackground resizeMode='cover' key={img} style={{ width: 335, height: 300, shadowColor: 'lightgrey', marginRight: 30, shadowOffset: {height: 5, width: 5}, shadowOpacity: 1, }} source={{uri: img}} alt={img}/>)}
+            {props.galleryImgs?.map((img, index) => <ImageBackground resizeMode='cover' key={index} style={{ width: 335, height: 300, shadowColor: 'lightgrey', marginRight: 30, shadowOffset: {height: 5, width: 5}, shadowOpacity: 1, }} source={{uri: img}} alt={img}/>)}
         </ScrollView>
     </View>
 

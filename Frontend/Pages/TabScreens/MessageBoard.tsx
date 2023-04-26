@@ -41,10 +41,10 @@ export default function MessageBoard({ navigation, route }) {
   return (
     <MessageStackNavigator.Navigator>
         <MessageStackNavigator.Screen
-            name={StackMsgRoutes.MESSAGES}
+            name={StackMsgRoutes.MESSAGE_BOARD}
             component={MessagePage}
             options={({ navigation, route }) => ({
-                headerTitle: StackMsgRoutes.MESSAGES, 
+                headerTitle: StackMsgRoutes.MESSAGE_BOARD, 
                 headerLeft: WriteIcon,
                 headerBackTitleVisible: false,
             })}
