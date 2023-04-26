@@ -1,9 +1,8 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native';
-import { FontSize, GenStyle } from '../Common/GlobalStyles';
-import { createPropertySignature } from 'typescript';
 import { ScrollView } from 'react-native-gesture-handler';
+import { FontSize, GenStyle } from '../../Common/GlobalStyles';
 
 interface ContactInfo {
     businessName: string;

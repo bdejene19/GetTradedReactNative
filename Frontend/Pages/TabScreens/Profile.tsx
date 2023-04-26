@@ -1,11 +1,12 @@
 import { View, StyleSheet } from 'react-native'
 import React from 'react'
-import ProfileContact from '../../Components/ProfileContact'
-import AboutBusiness from '../../Components/AboutBusiness'
-import GalleryScroll from '../../Components/GalleryScroll'
+import BusinessContact from '../../Components/profile/BusinessContact'
+import GalleryScroll from '../../Components/profile/GalleryScroll'
 
 import { ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import ProfileContact from '../../Components/profile/ProfileContact'
+import AboutBusiness from '../../Components/profile/AboutBusiness'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -23,7 +24,7 @@ export default function Profile() {
     <ScrollView style={styles.pageStyle}>
         <ProfileContact businessName='Bemnet Dejene' email='' phone='' profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
         
-        <AboutBusiness content='My About business Section'/>
+        <BusinessContact email='' phone='' linkedIn=''/>
         <GalleryScroll 
           label='Our Work' 
           containerStyle={{...GalleryStyle.rows}} 
@@ -33,6 +34,7 @@ export default function Profile() {
           scrollHorizontal={true} 
           imgCardStyle={{ padding: 100, height: 300, width: 350 }}
         />
+        <AboutBusiness content='My about content'/>
     </ScrollView>
   )
 }
@@ -41,7 +43,5 @@ const styles = StyleSheet.create({
   pageStyle: {
     backgroundColor: '#FFE19C',
     height: '100%',
-    rowGap: 25,
-
   }
 })

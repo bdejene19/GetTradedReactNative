@@ -1,10 +1,10 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native';
-import { GenStyle } from '../Common/GlobalStyles';
 import { Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDeleteLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GenStyle } from '../../Common/GlobalStyles';
 
 interface MessageThreadProps {
     from: string;

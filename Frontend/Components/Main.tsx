@@ -1,14 +1,12 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faDashboard, faHome, faMessage, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faHome, faMessage } from '@fortawesome/free-solid-svg-icons';
 import JobBoard from '../Pages/TabScreens/JobBoard';
 import Profile from '../Pages/TabScreens/Profile';
 import MessageBoard from '../Pages/TabScreens/MessageBoard';
 import { TabRootParamList, TabRoutes } from '../Pages/types';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ProfileHeaderLeft, ProfileHeaderRight } from './tabscreenHeaders/ProfileHeader';
 
 const ProfileIcon = () => (
@@ -21,7 +19,7 @@ const MessageIcon = () => (
 
 
 const JobsIcon = () => (
-    <FontAwesomeIcon icon={faDashboard}/>
+    <FontAwesomeIcon icon={faClipboard}/>
 )
 
 const Tab = createBottomTabNavigator<TabRootParamList>();
@@ -39,8 +37,10 @@ export default function Main() {
                     headerLeft: ProfileHeaderLeft,
                     headerShadowVisible: false,
                     headerStyle: {
-                    backgroundColor: '#F47742',
-                },  tabBarIcon: ProfileIcon}}
+                        backgroundColor: '#F47742',
+                    },  
+                    tabBarIcon: ProfileIcon
+                }}
             />
             <Tab.Screen 
                 name={TabRoutes.JOBS}
