@@ -1,4 +1,4 @@
-import { View, Text, ViewStyle } from 'react-native'
+import { View, Text, ViewStyle, Modal } from 'react-native'
 import React from 'react'
 import { Button } from '@ui-kitten/components';
 import { FontSize } from './GlobalStyles';
@@ -21,7 +21,7 @@ interface ConfirmationProps {
 }
 export default function ConfirmationModal(props: ConfirmationProps) {
   return (
-    <View style={props.modalStyle}>
+    <Modal  style={props.modalStyle}>
       <Text style={[FontSize.subHeader, { fontWeight: '600'}]}>{props.confirmTitle}</Text>
       {props.confirmExplain ? <Text>{props.confirmExplain}</Text> : null}
 
@@ -32,6 +32,6 @@ export default function ConfirmationModal(props: ConfirmationProps) {
       <TouchableOpacity>
         <Button appearance={'outline'} style={props.rejectBtnStyle }>{props.rejectBtnTitle ? props.rejectBtnTitle : TextResources.ButtonStrings.CANCEL}</Button>
       </TouchableOpacity>
-    </View>
+    </Modal>
   )
 }

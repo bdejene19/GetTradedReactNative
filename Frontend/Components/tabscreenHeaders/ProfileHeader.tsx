@@ -30,9 +30,7 @@ export const ProfileHeaderLeft = () => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
         columnGap: 30,
-        paddingHorizontal: 15,
     }
 
 })

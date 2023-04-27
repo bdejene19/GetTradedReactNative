@@ -7,6 +7,11 @@ import { ViewStyle } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import ProfileContact from '../../Components/profile/ProfileContact'
 import AboutBusiness from '../../Components/profile/AboutBusiness'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { ProfileHeaderLeft, ProfileHeaderRight } from '../../Components/tabscreenHeaders/ProfileHeader'
+import ProfileDrawer from '../DrawerScreen/ProfileDrawer'
+import { ProfileStackParamList, ProfileStackRoutes } from '../types'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -18,7 +23,7 @@ const GalleryStyle = StyleSheet.create({
 
   } 
 })
-export default function Profile() {
+function Profile() {
 
   return (
     <ScrollView style={styles.pageStyle}>
@@ -39,6 +44,28 @@ export default function Profile() {
   )
 }
 
+const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
+export const ProfileScreens = () => {
+  return (
+    <NavigationContainer independent={true}>
+      <ProfileStack.Navigator>
+        <ProfileStack.Screen 
+          name={ProfileStackRoutes.PROFILE}
+          component={Profile}
+          options={{ 
+            headerRight: ProfileHeaderRight,
+            headerTitle: 'Profile',
+            headerLeft: ProfileHeaderLeft,
+            headerShadowVisible: false,
+            headerStyle: {
+                backgroundColor: '#F47742',
+            },  
+        }}
+          />
+      </ProfileStack.Navigator>
+    </NavigationContainer>
+  )
+}
 const styles = StyleSheet.create({
   pageStyle: {
     backgroundColor: '#FFE19C',

@@ -6,7 +6,14 @@ export enum StackLoginRoutes {
     CHAT = "Chat",
 
 }
+export enum JobsStackRoutes {
+    JOBS_BOARD = 'Jobs Board'
+}
 
+export enum ProfileStackRoutes {
+    PROFILE = 'Profile',
+    
+}
 export enum StackMsgRoutes {
     MESSAGE_BOARD = 'Message Board',
     CHAT = 'Chat',
@@ -16,6 +23,7 @@ export enum TabRoutes {
     JOBS = 'Jobs',
     MESSAGES = 'Messages',
 }
+
 
 enum DrawerRoutes {
     PROFILE_OPTIONS = ''
@@ -29,15 +37,18 @@ export type StackRootParamList = {
     [StackLoginRoutes.CHAT]: undefined,
 }
 
+export type StackMsgParamList = {
+    [StackMsgRoutes.MESSAGE_BOARD]: undefined,
+    [StackMsgRoutes.CHAT]: undefined,
 
+}
+
+export type ProfileStackParamList = {
+    [ProfileStackRoutes.PROFILE]: undefined,
+}
 export type TabRootParamList = { 
     [TabRoutes.PROFILE]: undefined,
     [TabRoutes.JOBS]: undefined,
     [TabRoutes.MESSAGES]: undefined,
 }
 
-export type StackMsgParamList = {
-    [StackMsgRoutes.MESSAGE_BOARD]: undefined,
-    [StackMsgRoutes.CHAT]: undefined,
-
-}

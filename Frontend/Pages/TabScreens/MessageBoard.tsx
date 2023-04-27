@@ -9,15 +9,17 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StackMsgRoutes, StackMsgParamList } from '../types'
 import ChatInteraction from '../StackScreens/ChatInteraction'
 import MessageThread from '../../Components/messages/MessageThread'
+import NewThreadModal from '../../Components/messages/NewThreadModal'
 
 const MessageStackNavigator = createNativeStackNavigator<StackMsgParamList>();
 export default function MessageBoard({ navigation, route }) {
+    const [msgModalOpen, setMsgModal] = useState(false);
     const [query, setQuery] = useState("")
     const SearchIcon = () => (
         <FontAwesomeIcon  icon={faSearch}/>
     )
     const WriteIcon = () => (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setMsgModal(true)}>
             <FontAwesomeIcon icon={faPenToSquare}  size={24}/>
         </TouchableOpacity>
     )
@@ -35,6 +37,7 @@ export default function MessageBoard({ navigation, route }) {
                     />
                 </TouchableWithoutFeedback>
                 <MessageThread onPress={() => navigation.navigate('Chat')} from='Bemnet Dejene' fromIcon='https://www.procore.com/dam/jcr:b9a8db20-d3a8-4122-b2e6-4374e0baeea5/homepage_persona_owner.png' latestMessage='yo whats good' latestMessageDate={new Date()}/>
+                <NewThreadModal modalVisible={msgModalOpen} setModal={setMsgModal}/>
             </View>
         )
     }
@@ -45,6 +48,9 @@ export default function MessageBoard({ navigation, route }) {
             component={MessagePage}
             options={({ navigation, route }) => ({
                 headerTitle: StackMsgRoutes.MESSAGE_BOARD, 
+                headerStyle: {
+                    backgroundColor: '#F47742',
+                  },
                 headerLeft: WriteIcon,
                 headerBackTitleVisible: false,
             })}

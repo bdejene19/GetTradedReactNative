@@ -67,15 +67,7 @@ export default function App() {
                   headerShown: false,
                 })}
               component={Main}
-            />
-             <Stack.Screen
-              name={StackLoginRoutes.CHAT}
-              options={({ route, navigation }) => ({
-                  title: "",
-                  headerShown: false,
-                })}
-              component={ChatInteraction}
-            />
+           />
           </Stack.Navigator>
         </NavigationContainer>
       </ApplicationProvider>

@@ -18,7 +18,6 @@ export default function ProfileDrawer() {
                 component={SettingDrawer}
             />
         </Drawer.Navigator>
-      <Text>ProfileDrawer</Text>
-    </NavigationContainer>
+      </NavigationContainer>
   )
 }
