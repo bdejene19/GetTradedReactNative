@@ -7,7 +7,8 @@ export enum StackLoginRoutes {
 
 }
 export enum JobsStackRoutes {
-    JOBS_BOARD = 'Jobs Board'
+    JOBS_BOARD = 'Jobs Board',
+    SPECIFIC_JOB_BOARD = 'Specific Job Board'
 }
 
 export enum ProfileStackRoutes {
@@ -41,6 +42,13 @@ export type StackMsgParamList = {
     [StackMsgRoutes.MESSAGE_BOARD]: undefined,
     [StackMsgRoutes.CHAT]: undefined,
 
+}
+
+export type JobsBoardParamList = {
+    [JobsStackRoutes.JOBS_BOARD]: undefined,
+    [JobsStackRoutes.SPECIFIC_JOB_BOARD]: {
+        jobType: string,
+    }
 }
 
 export type ProfileStackParamList = {

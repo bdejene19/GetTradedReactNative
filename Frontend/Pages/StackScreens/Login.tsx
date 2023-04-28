@@ -4,7 +4,7 @@ import { Button } from '@ui-kitten/components'
 import { GenStyle, LightMode } from '../../Common/GlobalStyles'
 import { CommonTextInput } from '../../Common/CommonInput'
 
-export const Login = ({ navigation}) => {
+export const Login = ({ navigation }) => {
   return (
     <View style={{...LightMode.screenPadding, rowGap: 20}}>
         <CommonTextInput label='Email' placeholder='jdoe@gmail.com' onChange={() => {}} />
