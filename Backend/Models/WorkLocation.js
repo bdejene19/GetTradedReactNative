@@ -8,9 +8,13 @@ WorkLocation.init(
   {
     location_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+      allowNull: false,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -18,10 +22,6 @@ WorkLocation.init(
         model: "user",
         key: "user_id",
       },
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
     },
   },
   {
