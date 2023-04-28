@@ -1,16 +1,30 @@
 const UserData = [
   {
     name: "Bemnet Dejene",
-    email: "bemnet_35@hotmail.com",
+    email: "Bemnet_35@hotmail.com",
     phone: "12345678",
     password: "Password",
   },
 
   {
     name: "Teddy Dejene",
-    email: "teddy@hotmail.com",
+    email: "Teddy@hotmail.com",
     phone: "12345678",
     password: "Password1",
+  },
+
+  {
+    name: "Nathaniel Girma",
+    email: "Bushi@hotmail.com",
+    phone: "12345678",
+    password: "Password3",
+  },
+
+  {
+    name: "Teddy Dejene",
+    email: "Teddy2@hotmail.com",
+    phone: "12345678",
+    password: "Password4",
   },
 ];
 

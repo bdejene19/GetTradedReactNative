@@ -1,7 +1,6 @@
 const { User } = require("../Models/index");
 const sequelize = require("../config/connection");
 const UserData = require("./userData");
-const LocationData = require("");
 
 const seedDatabase = async () => {
   await sequelize.sync({
@@ -15,3 +14,4 @@ const seedDatabase = async () => {
 };
 
 seedDatabase();
+  
