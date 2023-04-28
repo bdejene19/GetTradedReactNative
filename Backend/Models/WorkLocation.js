@@ -1,4 +1,4 @@
-const { Model, DataTypes, UUIDV4 } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
 const sequelize = require("../config/connection");
 
@@ -6,16 +6,17 @@ class WorkLocation extends Model {}
 
 WorkLocation.init(
   {
-    id: {
+    location_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       autoIncrement: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "user",
-        key: "id",
+        key: "user_id",
       },
     },
     name: {

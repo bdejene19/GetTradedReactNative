@@ -6,42 +6,42 @@ const MessageThread = require("./MessageThread");
 
 /** User to Work Location relationship - one to many */
 User.hasMany(WorkLocation, {
-  foreignKey: "id",
+  foreignKey: "user_id",
   onDelete: "CASCADE",
 });
 
 WorkLocation.belongsTo(User, {
-  foreignKey: "id",
+  foreignKey: "user_id",
 });
 
 /** User to Work Image relationship - one to many */
 User.hasMany(WorkImage, {
-  foreignKey: "id",
+  foreignKey: "user_id",
   onDelete: "CASCADE",
 });
 
 WorkImage.belongsTo(User, {
-  foreignKey: "id",
+  foreignKey: "user_id",
 });
 
 /** User to inbox relationship - one to one*/
 User.hasOne(Inbox, {
-  foreignKey: "id",
+  foreignKey: "user_id",
   onDelete: "CASCADE",
 });
 
 Inbox.belongsTo(User, {
-  foreignKey: "id",
+  foreignKey: "user_id",
 });
 
 /** Inbox to MessageThread relationship - one to many */
 Inbox.hasMany(MessageThread, {
-  foreignKey: "id",
+  foreignKey: "inbox_id",
   onDelete: "CASCADE",
 });
 
 MessageThread.belongsTo(Inbox, {
-  foreignKey: "id",
+  foreignKey: "inbox_id",
 });
 
 module.exports = {

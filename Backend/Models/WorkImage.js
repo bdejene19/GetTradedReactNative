@@ -1,11 +1,10 @@
-import { Model, DataTypes, UUIDV4 } from "sequelize";
-import { require } from "../Globals/GlobalDeclarations";
+const { Model, DataTypes, UUIDV4 } = require("sequelize");
 const sequelize = require("../config/connection");
 class WorkImage extends Model {}
 
 WorkImage.init(
   {
-    id: {
+    image_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -15,13 +14,12 @@ WorkImage.init(
       type: DataTypes.INTEGER,
       references: {
         model: "user",
-        key: "id",
+        key: "user_id",
       },
       allowNull: false,
     },
     image_id: {
-      type: DataTypes.UUIDV4,
-      defaultValue: new UUIDV4(),
+      type: DataTypes.INTEGER,
     },
     file_path: {
       type: DataTypes.STRING,

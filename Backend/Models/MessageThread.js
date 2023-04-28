@@ -1,14 +1,13 @@
-import { Model, DataTypes, UUIDV4 } from "sequelize";
-import { require } from "../Globals/GlobalDeclarations";
-
+const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 const User = require("./User");
 class MessageThread extends Model {}
 
 MessageThread.init(
   {
-    id: {
+    thread_id: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
       allowNull: false,
       autoIncrement: true,
     },
@@ -16,18 +15,18 @@ MessageThread.init(
       type: DataTypes.INTEGER,
       references: {
         model: "inbox",
-        key: "id",
+        key: "inbox_id",
       },
     },
-    chatUser_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "user",
-        key: "id",
-      },
-    },
+    // chatUser_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: "user",
+    //     key: "id",
+    //   },
+    // },
     messages: {
-      type: DataTypes.ABSTRACT,
+      type: DataTypes.STRING,
     },
   },
   {
