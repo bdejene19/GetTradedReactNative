@@ -2,4 +2,4 @@ DROP DATABASE IF EXISTS mainDB;
 
 CREATE DATABASE mainDB;
 
-use mainDB;
+USE mainDB;
