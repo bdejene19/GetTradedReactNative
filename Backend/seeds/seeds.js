@@ -1,19 +1,17 @@
 const { User } = require("../Models/index");
-const db = require("../config/connection");
-const UserData = [
-  {
-    name: "Bemnet Dejene",
-    email: "bemnet_35@hotmail.com",
-    phone: "12345678",
-    password: "Password",
-  },
+const sequelize = require("../config/connection");
+const UserData = require("./userData");
+const LocationData = require("");
 
-  {
-    name: "Teddy Dejene",
-    email: "teddy@hotmail.com",
-    phone: "12345678",
-    password: "Password1",
-  },
-];
+const seedDatabase = async () => {
+  await sequelize.sync({
+    force: true,
+  });
 
-User.bulkCreate(UserData);
+  await User.bulkCreate(UserData);
+  console.log("success seeding database");
+
+  process.exit(0);
+};
+
+seedDatabase();
