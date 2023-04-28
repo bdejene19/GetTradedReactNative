@@ -11,7 +11,7 @@ export const CommonTextInput = (props: TextProps) => {
     return (
         <View style={styles.inputContainer}>
             {props.label ? <Text style={styles.formLabelText}>{props?.label}</Text> : null}
-            <TextInput secureTextEntry={props.secureEntry ? props.secureEntry : false} style={styles.inputBox} placeholder={props.placeholder} onChange={props.onChange}/>
+            <TextInput secureTextEntry={props.secureEntry ? props.secureEntry : false} style={styles.inputBox} placeholder={props.placeholder} onChange={props?.onChange}/>
         </View>
     )
 }

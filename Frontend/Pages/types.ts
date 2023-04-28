@@ -34,7 +34,7 @@ export type StackRootParamList = {
     [StackLoginRoutes.LOGIN]: undefined,
     [StackLoginRoutes.CREATE_ACCOUNT]: undefined,
     [StackLoginRoutes.WORK_LOCATIONS]: undefined,
-    [StackLoginRoutes.MAIN]: undefined,
+    [StackLoginRoutes.MAIN]: ProfileParams,
     [StackLoginRoutes.CHAT]: undefined,
 }
 
@@ -52,7 +52,13 @@ export type JobsBoardParamList = {
 }
 
 export type ProfileStackParamList = {
-    [ProfileStackRoutes.PROFILE]: undefined,
+    [ProfileStackRoutes.PROFILE]: { 
+        user_id: number; 
+        name: string;
+        email: string; 
+        phone: string;
+        password: string;
+    }
 }
 export type TabRootParamList = { 
     [TabRoutes.PROFILE]: undefined,
@@ -60,3 +66,11 @@ export type TabRootParamList = {
     [TabRoutes.MESSAGES]: undefined,
 }
 
+
+type ProfileParams = {
+    user_id: number; 
+    name: string;
+    email: string; 
+    phone: string;
+    password: string;
+}

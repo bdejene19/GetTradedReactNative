@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import BusinessContact from '../../Components/profile/BusinessContact'
 import GalleryScroll from '../../Components/profile/GalleryScroll'
 
@@ -23,11 +23,11 @@ const GalleryStyle = StyleSheet.create({
 
   } 
 })
-function Profile() {
-
+function Profile({ navigation, route }) {
+  const userParams = route.params;
   return (
     <ScrollView style={styles.pageStyle}>
-        <ProfileContact businessName='Bemnet Dejene' email='' phone='' profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
+        <ProfileContact businessName={userParams.name} email={userParams.email} phone={userParams.phone} profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
         
         <BusinessContact email='' phone='' linkedIn=''/>
         <GalleryScroll 
@@ -45,23 +45,23 @@ function Profile() {
 }
 
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
-export const ProfileScreens = () => {
+export const ProfileScreens = ({ navigation, route }) => {
   return (
     <NavigationContainer independent={true}>
       <ProfileStack.Navigator>
         <ProfileStack.Screen 
           name={ProfileStackRoutes.PROFILE}
-          component={Profile}
+          component={() => <Profile navigation={navigation} route={route}/>}
           options={{ 
             headerRight: ProfileHeaderRight,
-            headerTitle: 'Profile',
+            headerTitle: ProfileStackRoutes.PROFILE,
             headerLeft: ProfileHeaderLeft,
             headerShadowVisible: false,
             headerStyle: {
                 backgroundColor: '#F47742',
             },  
-        }}
-          />
+          }}
+        />
       </ProfileStack.Navigator>
     </NavigationContainer>
   )

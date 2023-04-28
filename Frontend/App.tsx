@@ -12,7 +12,6 @@ import { CreateAccount } from "./Pages/StackScreens/CreateAccount";
 import WorkLocations from "./Pages/StackScreens/WorkLocations";
 import { Login } from "./Pages/StackScreens/Login";
 import { StackRootParamList, StackLoginRoutes } from "./Pages/types";
-import ChatInteraction from "./Pages/StackScreens/ChatInteraction";
 
 const Stack = createNativeStackNavigator<StackRootParamList>();
 const DrawerMenuIcon = () => (

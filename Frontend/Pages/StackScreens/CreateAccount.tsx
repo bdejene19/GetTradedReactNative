@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
-import { TouchableHighlight, TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { View, StyleSheet} from 'react-native'
+import {  TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { CommonTextInput } from '../../Common/CommonInput'
-import { Button, Icon, Input, Layout } from '@ui-kitten/components'
+import { Button, Input } from '@ui-kitten/components'
 import { GenStyle } from '../../Common/GlobalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
@@ -43,7 +43,7 @@ export const CreateAccount = ({ navigation }) => {
     }
     const RenderInputSecure = (props: { secure?: boolean, onChange?: () => void}) => {
         return (
-            <TouchableWithoutFeedback onPress={props.onChange ? props.onChange : updateSecureText}>
+            <TouchableWithoutFeedback onPress={props?.onChange ? props?.onChange : updateSecureText}>
                 <FontAwesomeIcon icon={props.secure ? faEye : faEyeSlash}/>
             </TouchableWithoutFeedback>
         )

@@ -24,17 +24,19 @@ const JobsIcon = () => (
 
 const Tab = createBottomTabNavigator<TabRootParamList>();
 export default function Main({ navigation, route }) {
+    const userParams = route.params
+    console.log('main params: ', userParams);
   return (
     <NavigationContainer independent={true}>
         <Tab.Navigator>
             <Tab.Screen 
                 name={TabRoutes.PROFILE}
-                component={ProfileScreens}
+                component={() => <ProfileScreens navigation={navigation} route={route}/>}
                 
-                options={{ 
+                options={({ navigation, route }) => ({ 
                     headerShown: false,
                     tabBarIcon: ProfileIcon
-                }}
+                })}
             />
             <Tab.Screen 
                 name={TabRoutes.JOBS}
