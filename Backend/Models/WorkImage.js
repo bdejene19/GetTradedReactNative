@@ -31,7 +31,7 @@ WorkImage.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "work_locations",
+    modelName: "work_images",
   }
 );
 

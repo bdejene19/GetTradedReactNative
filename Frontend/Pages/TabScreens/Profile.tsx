@@ -29,7 +29,7 @@ function Profile({ navigation, route }) {
     <ScrollView style={styles.pageStyle}>
         <ProfileContact businessName={userParams.name} email={userParams.email} phone={userParams.phone} profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
         
-        <BusinessContact email='' phone='' linkedIn=''/>
+        <BusinessContact email={userParams.email} phone={userParams.phone} linkedIn=''/>
         <GalleryScroll 
           label='Our Work' 
           containerStyle={{...GalleryStyle.rows}} 
