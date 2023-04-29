@@ -28,18 +28,18 @@ Note: this application is an Expo React Native app;
   ### Frontend
 Steps: 
 1. Install all dependencies and run the React Native Expo app
-  - a) [`npm i`]
-  - b) [`npx expo start`]
+  - a) `npm i`
+  - b) `npx expo start`
 
   ### Backend
 1. Install all dependencies
-  - [`npm i`]
+  - `npm i`
 2. Open a second terminal to handle starting MySQL server
 3. In MySQL terminal:
-  - a) [`source db/schema.sql;`] => can validate if Database was select with [`select database();`] command
+  - a) `source db/schema.sql;` => can validate if Database was select with [`select database();`] command
 4. After running db Schema file, run server and seed database.
-  - a) [`nodemon index.js`] - runs server with hot reloading
-  - b) [`node seeds/seeds.js`] - seeds MySQL database
+  - a) `nodemon index.js` - runs server with hot reloading
+  - b) `node seeds/seeds.js` - seeds MySQL database
 
 ## Tech Stack
   ### Frontend Stack 
