@@ -1,16 +1,25 @@
 const router = require("express").Router();
-const { User } = require("../../Models/index");
+const {
+  User,
+  Inbox,
+  MessageThread,
+  WorkImage,
+  WorkLocation,
+} = require("../../Models/index");
 const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
-  console.log(req.body);
   try {
     let user = await User.findOne({
       where: {
         email: req.body.email,
       },
+      include: [
+        { model: WorkLocation, attributes: ["location_id", "name"] },
+        { model: WorkImage, attributes: ["image_id", "file_path"] },
+        { model: Inbox, attributes: ["inbox_id"] },
+      ],
     });
-    console.log("my user: ", user);
 
     if (!user) {
       return res.json({ err: "User not found" });
@@ -22,6 +31,11 @@ router.post("/", async (req, res) => {
       return res.status(404).json({ err: "User not found" });
     }
     if (valid) {
+      // let messageThreads = await MessageThread.findAll({
+      //   where: {
+      //     inbox_id: user.inbox.inbox_id,
+      //   },
+      // });
       res.status(200).json(user);
     }
   } catch (e) {

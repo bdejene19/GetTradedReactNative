@@ -18,9 +18,6 @@ WorkImage.init(
       },
       allowNull: false,
     },
-    image_id: {
-      type: DataTypes.INTEGER,
-    },
     file_path: {
       type: DataTypes.STRING,
       allowNull: false,
