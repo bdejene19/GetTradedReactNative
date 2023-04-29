@@ -17,7 +17,7 @@ Contractor Contacts is a full stack mobile app, built to help contract workers s
 Note: This application was built with NPM, requiring it to be installed on any forks. Yarn is also an alternative.
 
 Install any main dependencies
- - [`npm i`]
+ - `npm i`
 
 ###Requirements:
 Currently, Contractor Contacts only supports iOS devices. This application is also a mobile app, which requires developers to have a simulator installed on their computer. On Mac, I suggest XCode.
