@@ -31,8 +31,7 @@ export default function Main({ navigation, route }) {
         <Tab.Navigator>
             <Tab.Screen 
                 name={TabRoutes.PROFILE}
-                component={() => <ProfileScreens navigation={navigation} route={route}/>}
-                
+                children={() => <ProfileScreens navigation={navigation} route={route}/>}
                 options={({ navigation, route }) => ({ 
                     headerShown: false,
                     tabBarIcon: ProfileIcon
@@ -48,8 +47,7 @@ export default function Main({ navigation, route }) {
             />
             <Tab.Screen 
                 name={TabRoutes.MESSAGES} 
-                
-                component={MessageBoard}
+                children={() => <MessageBoard navigation={navigation} route={route}/>}
                 options={({ navigation,}) => ({ headerShown: false, tabBarIcon: MessageIcon })}
             />
         </Tab.Navigator>

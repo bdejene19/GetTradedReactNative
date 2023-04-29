@@ -47,6 +47,7 @@ MessageThread.belongsTo(Inbox, {
 module.exports = {
   User,
   WorkLocation,
+  WorkImage,
   Inbox,
   MessageThread,
 };

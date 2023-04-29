@@ -27,7 +27,7 @@ interface Shortcut {
 
 export default function BusinessContact(props: ContactProps) {
     const Shortcut = (props: Shortcut) => (
-        <TouchableOpacity style={{ padding: '3%', justifyContent: 'center', alignItems: 'center', borderRadius: 100, width: 50, height: 50, backgroundColor: 'lightgrey', shadowColor: 'black', shadowOffset: { height: 1.5, width: 1.5}, shadowOpacity: 0.3}} onPress={props.onPress}>
+        <TouchableOpacity style={{ padding: '3%', justifyContent: 'center', alignItems: 'center', borderRadius: 100, width: 50, height: 50, backgroundColor: 'lightgrey'}} onPress={props.onPress}>
             <FontAwesomeIcon icon={props.icon} size={28} />
         </TouchableOpacity>
     )
@@ -46,7 +46,7 @@ export default function BusinessContact(props: ContactProps) {
         </View>
         <Shortcut key={TextResources.FormStrings.PHONE} icon={faPhone} onPress={() =>  quickURLAction("tel", props.phone)}/>
         <Shortcut key={TextResources.FormStrings.EMAIL} icon={faEnvelope} onPress={() => quickURLAction("email", props.email)}/>
-        <Shortcut key={TextResources.FormStrings.PHONE} icon={faPhone} onPress={() =>  quickURLAction("email", props.phone)}/>
+        <Shortcut key={TextResources.FormStrings.CONTACT} icon={faPhone} onPress={() =>  quickURLAction("email", props.phone)}/>
 
     </View>
   )

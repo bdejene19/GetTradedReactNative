@@ -1,10 +1,16 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-const Drawer = createDrawerNavigator()
-export default function ProfileDrawer() {
+const Drawer = createNativeStackNavigator()
+export default function ProfileDrawer(props: { drawerOpen: boolean }, { navigation, route}) {
+    useEffect(() => {
+        if (props.drawerOpen) {
+
+        }
+    }, [props.drawerOpen])
     const SettingDrawer = () => (
         <View>
             <Text>my drawer</Text>
@@ -14,7 +20,7 @@ export default function ProfileDrawer() {
     <NavigationContainer independent={true}> 
         <Drawer.Navigator>
             <Drawer.Screen
-                name={"Settings"}
+                name={"Main Drawer"}
                 component={SettingDrawer}
             />
         </Drawer.Navigator>
