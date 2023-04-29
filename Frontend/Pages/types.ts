@@ -11,9 +11,9 @@ export enum JobsStackRoutes {
     SPECIFIC_JOB_BOARD = 'Specific Job Board'
 }
 
-export enum ProfileStackRoutes {
+export enum ProfileDrawerRoutes {
     PROFILE = 'Profile',
-    
+    SIDE_MENU = 'Side Menu'
 }
 export enum StackMsgRoutes {
     MESSAGE_BOARD = 'Message Board',
@@ -51,14 +51,15 @@ export type JobsBoardParamList = {
     }
 }
 
-export type ProfileStackParamList = {
-    [ProfileStackRoutes.PROFILE]: { 
+export type ProfileDrawerParamList = {
+    [ProfileDrawerRoutes.PROFILE]: { 
         user_id: number; 
         name: string;
         email: string; 
         phone: string;
         password: string;
-    }
+    },
+    [ProfileDrawerRoutes.SIDE_MENU]: undefined,
 }
 export type TabRootParamList = { 
     [TabRoutes.PROFILE]: undefined,

@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import {  } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBars, faMessage, faShareFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { GestureResponderEvent } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 export const ProfileHeaderRight = () => {
   return (
@@ -17,12 +19,17 @@ export const ProfileHeaderRight = () => {
   )
 }
 
+
+interface HeaderLeft {
+  menuPress: () => void;
+}
 export const ProfileHeaderLeft = () => {
+  const navigation = useNavigation();
     return (
       <View style={styles.container}>
-          <>
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
               <FontAwesomeIcon icon={faBars} size={24}/>
-          </>
+          </TouchableOpacity>
       </View>
     )
   }
