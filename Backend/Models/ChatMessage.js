@@ -1,22 +1,28 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
-const User = require("./User");
-class MessageThread extends Model {}
 
-MessageThread.init(
+class ChatMessage extends Model {}
+
+ChatMessage.init(
   {
-    thread_id: {
+    message_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
       autoIncrement: true,
+      allowNull: false,
     },
-    inbox_id: {
+    text: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    thread_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "inbox",
-        key: "inbox_id",
+        model: "message_thread",
+        key: "thread_id",
       },
+      allowNull: false,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -24,15 +30,17 @@ MessageThread.init(
         model: "user",
         key: "user_id",
       },
+      allowNull: false,
     },
   },
   {
     sequelize,
-    timestamps: false,
+    timestamps: true,
+    createdAt: true,
     freezeTableName: true,
     underscored: true,
-    modelName: "message_thread",
+    modelName: "chat_message",
   }
 );
 
-module.exports = MessageThread;
+module.exports = ChatMessage;
