@@ -87,4 +87,24 @@ router.get("/thread/:thread_id", async (req, res) => {
       .json({ msg: "Error retrieving threads from database", error: err });
   }
 });
+
+router.delete("/thread/:thread_id", async (req, res) => {
+  const threadID = req.params.thread_id;
+  try {
+    const deleted = await MessageThread.destroy({
+      where: {
+        thread_id: threadID,
+      },
+    }).catch((err) =>
+      res.status(500).json({ msg: "Error deleting thread from database", err })
+    );
+
+    if (!deleted) {
+      res.status(404).json({ msg: "Unable to find thread to delete" });
+    }
+    res.status(200).json({ msg: "Successful deletion", deleted });
+  } catch (err) {
+    res.status(404).json({ msg: "Error delete thread on server", err });
+  }
+});
 module.exports = router;

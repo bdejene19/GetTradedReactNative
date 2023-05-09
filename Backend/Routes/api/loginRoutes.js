@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
     }
 
     const valid = bcrypt.compare(user.password, req.body.password);
-    console.log(valid);
+    console.log("is valid: ", valid);
     if (!valid) {
       return res.status(404).json({ err: "User not found" });
     }

@@ -5,29 +5,29 @@ import { Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDeleteLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GenStyle } from '../../Common/GlobalStyles';
+import { TextResources } from '../../Common/GlobalDeclarations';
 
 interface MessageThreadProps {
+    thread_id: number;
     from: string;
     fromIcon: string;
     latestMessage: string;
     latestMessageDate: Date;
     onPress: () => void;
+    onDelete: () => void;
 }
 
 export default function MessageThread(props: MessageThreadProps) {
-    console.log(props);
-    const DeleteThread = () => {
-        const handlePress = () => {
-
-        }
+    const DeleteThread = (props: { handleDelete: () => void}) => {
+        console.log('props: ', props);
         return (
-            <TouchableOpacity style={styles.deleteThreadWrap} onPress={handlePress}>
+            <TouchableOpacity style={styles.deleteThreadWrap} onPress={props.handleDelete}>
                 <FontAwesomeIcon icon={faTrash} size={20} color='white'/>
             </TouchableOpacity>
         )
     }
   return (
-    <Swipeable renderLeftActions={() => <DeleteThread/>} overshootLeft={true} leftThreshold={1} containerStyle={{height: '12.5%'}} rightThreshold={1} onSwipeableOpen={() => console.log('ran')}>
+    <Swipeable renderLeftActions={() => <DeleteThread handleDelete={props.onDelete}/>} overshootLeft={true} leftThreshold={1} containerStyle={{height: '12.5%'}} rightThreshold={1} onSwipeableOpen={() => console.log('ran')}>
         <TouchableOpacity style={styles.threadContainer} onPress={props.onPress}>
             <View style={styles.iconContainer}>
                 <Image style={[GenStyle.circle]} source={{uri: props.fromIcon}}/>

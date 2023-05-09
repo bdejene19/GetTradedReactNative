@@ -45,6 +45,9 @@ export default function MessageBoard({ navigation, route }) {
         
     }, [userID])
 
+    useEffect(() => {
+
+    }, [threads])
     const SearchIcon = () => (
         <FontAwesomeIcon  icon={faSearch}/>
     )
@@ -53,8 +56,29 @@ export default function MessageBoard({ navigation, route }) {
             <FontAwesomeIcon icon={faPenToSquare}  size={24}/>
         </TouchableOpacity>
     )
-    
+
+    const handleDelete = (threadID: number) => {
+        fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.THREAD}/${threadID}`, {
+            method: "DELETE",
+        }).then(res => res.json()).then(res => {
+            threads.inbox.message_threads.forEach(thread => console.log(thread.thread_id))
+            let updatedThreads = threads.inbox.message_threads.filter(thread => {
+                if (thread.thread_id !== threadID) {
+                    return thread
+                }
+            })
+
+            setThreads({ 
+                inbox: {
+                    ...threads.inbox,
+                    message_threads: updatedThreads
+            }})
+
+
+        }).catch(err => console.log('my err: ', err))
+    }
     const MessagePage =({ navigation, route }) => {
+        
         return (
             <View style={{alignItems: 'center', height: '100%', width: '100%', backgroundColor: '#FFE19C', paddingVertical: '2.5%',}}>
                 <TouchableWithoutFeedback style={{width: '97.5%'}}>
@@ -77,6 +101,8 @@ export default function MessageBoard({ navigation, route }) {
                                 accountID: userID,
                                 thread_id: thread.thread_id,
                             })} 
+                            onDelete={() => handleDelete(thread.thread_id)}
+                            thread_id={thread.thread_id}
                             from={thread.user.name} 
                             fromIcon='https://www.procore.com/dam/jcr:b9a8db20-d3a8-4122-b2e6-4374e0baeea5/homepage_persona_owner.png' 
                             latestMessage={thread.chat_messages[0].text} 
