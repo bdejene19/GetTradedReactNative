@@ -15,6 +15,7 @@ interface MessageThreadProps {
 }
 
 export default function MessageThread(props: MessageThreadProps) {
+    console.log(props);
     const DeleteThread = () => {
         const handlePress = () => {
 
@@ -35,7 +36,7 @@ export default function MessageThread(props: MessageThreadProps) {
 
                 <View style={styles.headerWrap}>
                     <Text style={styles.header}>{props.from}</Text>
-                    <Text style={styles.date}>{props.latestMessageDate.getDate()}</Text>
+                    <Text style={styles.date}>{`${props.latestMessageDate.getDay()}/${props.latestMessageDate.getMonth() + 1}`}</Text>
                 </View>
                 <View style={styles.mainContent}>
                     <Text style={styles.subText}>{props.latestMessage}</Text>

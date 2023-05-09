@@ -1,16 +1,18 @@
 import { View, StyleSheet } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import BusinessContact from '../../Components/profile/BusinessContact'
 import GalleryScroll from '../../Components/profile/GalleryScroll'
 import { ScrollView } from 'react-native-gesture-handler'
 import ProfileContact from '../../Components/profile/ProfileContact'
 import AboutBusiness from '../../Components/profile/AboutBusiness'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { ProfileHeaderLeft, ProfileHeaderRight } from '../../Components/tabscreenHeaders/ProfileHeader'
-import ProfileDrawer from '../DrawerScreen/ProfileDrawer'
 import { ProfileDrawerParamList, ProfileDrawerRoutes } from '../types'
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
+import { createDrawerNavigator, DrawerContent, DrawerContentScrollView, DrawerItem, DrawerItemList, DrawerNavigationProp, DrawerScreenProps } from '@react-navigation/drawer'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faGears, faHome, faPenClip, faSignOut } from '@fortawesome/free-solid-svg-icons'
+import Settings from '../DrawerScreen/Settings'
+import { Login } from '../StackScreens/Login'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -43,11 +45,39 @@ function Profile({ navigation, route }) {
   )
 }
 
+interface ProfileDrawerItem {
+  label: string;
+  onPress: () => void;
+  icon: () => JSX.Element;
+  isFocused: boolean;
+}
 const ProfileDrawers = createDrawerNavigator<ProfileDrawerParamList>();
 export const ProfileScreens = ({ navigation, route }) => {
+  const [drawerItem, setDrawerItem] = useState("Profile");
+  const DrawerContent = () => {
+    const navigation = useNavigation<DrawerNavigationProp<ProfileDrawerParamList>>();
+    const DrawerItemIcon = (props: ProfileDrawerItem) => {
+      return (
+        <DrawerItem label={props.label} focused={props.isFocused} onPress={props.onPress} icon={props.icon}></DrawerItem>
+      )
+    }
+
+    const handleDrawerChange = (name: ProfileDrawerRoutes) => {
+      navigation.navigate(name);
+      setDrawerItem(name);
+    }
+    return (
+      <DrawerContentScrollView>
+        <DrawerItemIcon isFocused={drawerItem === 'Profile' ? true : false} label={ProfileDrawerRoutes.PROFILE} icon={() => <FontAwesomeIcon icon={faHome}/>} onPress={() => handleDrawerChange(ProfileDrawerRoutes.PROFILE)}/>
+        <DrawerItemIcon isFocused={drawerItem === 'Edit Profile' ? true : false} label={'Edit Profile'} onPress={() => handleDrawerChange(ProfileDrawerRoutes.EDIT_PROFILE)} icon={() => <FontAwesomeIcon icon={faPenClip}/>}/>
+        <DrawerItemIcon isFocused={drawerItem === 'Settings' ? true : false} label={'Settings'} onPress={() => handleDrawerChange(ProfileDrawerRoutes.SETTINGS)} icon={() => <FontAwesomeIcon icon={faGears}/>}/>
+        <DrawerItemIcon isFocused={drawerItem === 'Sign Out' ? true : false} label={'Sign Out'} onPress={() => {}} icon={() => <FontAwesomeIcon icon={faSignOut}/>}/>
+      </DrawerContentScrollView>
+    )
+  }
   return (
     <NavigationContainer independent={true}>
-      <ProfileDrawers.Navigator drawerContent={(props) => <DrawerContentScrollView {...props}><DrawerItem  {...props} label={"My Profile"} onPress={() => {}}/></DrawerContentScrollView>}>
+      <ProfileDrawers.Navigator drawerContent={DrawerContent}>
         <ProfileDrawers.Screen 
           name={ProfileDrawerRoutes.PROFILE}
           children={() => <Profile navigation={navigation} route={route}/>}
@@ -62,9 +92,22 @@ export const ProfileScreens = ({ navigation, route }) => {
           }}
         />
         <ProfileDrawers.Screen
-          name={ProfileDrawerRoutes.SIDE_MENU}
-          component={() => <View></View>}
-          />
+          name={ProfileDrawerRoutes.EDIT_PROFILE}
+          component={Settings}
+        />
+        <ProfileDrawers.Screen
+          name={ProfileDrawerRoutes.SETTINGS}
+          options={{ 
+            headerTitle: ProfileDrawerRoutes.SETTINGS,
+            headerLeft: ProfileHeaderLeft,
+            headerShadowVisible: false,
+            headerStyle: {
+                backgroundColor: '#F47742',
+            },  
+          }}
+          component={Settings}
+        />
+     
 
     
        

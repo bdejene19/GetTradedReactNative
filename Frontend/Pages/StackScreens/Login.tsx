@@ -6,6 +6,7 @@ import { CommonTextInput } from '../../Common/CommonInput'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { TextResources } from '../../Common/GlobalDeclarations'
 
 interface LoginForm {
   email: string;
@@ -20,7 +21,7 @@ export const Login = ({ navigation }) => {
   })
   const handleLogin = async () => {
     if (login.email.length !== 0 && login.password.length !== 0) {
-      fetch("http://localhost:8000/api/login/", {
+      fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.LOGIN}`, {
         method: "POST",
         body: JSON.stringify(login),
         headers: {

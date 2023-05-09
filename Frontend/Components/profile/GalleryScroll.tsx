@@ -16,7 +16,6 @@ interface GalleryScrollProps {
     galleryImgs: GalleryImg[];
 }
 export default function GalleryScroll(props: GalleryScrollProps) {
-  console.log('gal: ', props.galleryImgs)
   return (
     <View style={[GenStyle.fullWidth, { rowGap: 5, backgroundColor: 'white', paddingVertical: 10}]}>
         {props.label ? <Text style={[FontSize.subHeader, {paddingHorizontal: 15, }]}>{props.label}</Text> : null}
