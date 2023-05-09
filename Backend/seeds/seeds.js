@@ -4,6 +4,7 @@ const {
   WorkImage,
   Inbox,
   MessageThread,
+  ChatMessage,
 } = require("../Models/index");
 
 const sequelize = require("../config/connection");
@@ -13,7 +14,7 @@ const LocationData = require("./workLocations");
 const ImageData = require("./workImages");
 const MessageData = require("./messageThreadData");
 const InboxData = require("./inboxData");
-
+const ChatData = require("./chatMessageData");
 const seedDatabase = async () => {
   await sequelize.sync({
     force: true,
@@ -24,6 +25,7 @@ const seedDatabase = async () => {
   await WorkImage.bulkCreate(ImageData);
   await Inbox.bulkCreate(InboxData);
   await MessageThread.bulkCreate(MessageData);
+  await ChatMessage.bulkCreate(ChatData);
   console.log("success seeding database");
 
   process.exit(0);
