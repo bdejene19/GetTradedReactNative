@@ -26,10 +26,11 @@ JobPost.init(
     },
     imgLink: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: null,
     },
     user_id: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       references: {
         model: "user",
         key: "user_id",

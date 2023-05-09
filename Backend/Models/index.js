@@ -4,6 +4,7 @@ const WorkImage = require("./WorkImage");
 const Inbox = require("./Inbox");
 const MessageThread = require("./MessageThread");
 const ChatMessage = require("./ChatMessage");
+const JobPost = require("./JobPost");
 
 /** User to Work Location relationship - one to many */
 User.hasMany(WorkLocation, {
@@ -24,7 +25,12 @@ User.hasMany(WorkImage, {
 WorkImage.belongsTo(User, {
   foreignKey: "user_id",
 });
-
+User.hasMany(JobPost, {
+  foreignKey: "user_id",
+});
+JobPost.belongsTo(User, {
+  foreignKey: "user_id",
+});
 /** User to inbox relationship - one to one*/
 User.hasOne(Inbox, {
   foreignKey: "user_id",
@@ -70,6 +76,7 @@ module.exports = {
   User,
   WorkLocation,
   WorkImage,
+  JobPost,
   Inbox,
   MessageThread,
   ChatMessage,
