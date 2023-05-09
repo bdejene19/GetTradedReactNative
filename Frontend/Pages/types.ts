@@ -13,7 +13,9 @@ export enum JobsStackRoutes {
 
 export enum ProfileDrawerRoutes {
     PROFILE = 'Profile',
-    SIDE_MENU = 'Side Menu'
+    EDIT_PROFILE = 'Edit Profile',
+    SETTINGS = 'Settings',
+    SIGN_OUT = 'Sign Out'
 }
 export enum StackMsgRoutes {
     MESSAGE_BOARD = 'Message Board',
@@ -40,8 +42,7 @@ export type StackRootParamList = {
 
 export type StackMsgParamList = {
     [StackMsgRoutes.MESSAGE_BOARD]: undefined,
-    [StackMsgRoutes.CHAT]: undefined,
-
+    [StackMsgRoutes.CHAT]: ChatInteraction,
 }
 
 export type JobsBoardParamList = {
@@ -59,7 +60,9 @@ export type ProfileDrawerParamList = {
         phone: string;
         password: string;
     },
-    [ProfileDrawerRoutes.SIDE_MENU]: undefined,
+    [ProfileDrawerRoutes.EDIT_PROFILE]: undefined,
+    [ProfileDrawerRoutes.SETTINGS]: undefined,
+    [ProfileDrawerRoutes.SIGN_OUT]: undefined,
 }
 export type TabRootParamList = { 
     [TabRoutes.PROFILE]: undefined,
@@ -74,4 +77,12 @@ type ProfileParams = {
     email: string; 
     phone: string;
     password: string;
+}
+
+type ChatInteraction = {
+    name: string;
+    phone: string;
+    email: string;
+    accountID: number;
+    thread_id: number;
 }

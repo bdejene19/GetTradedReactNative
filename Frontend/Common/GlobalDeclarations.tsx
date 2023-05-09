@@ -31,6 +31,12 @@ export namespace TextResources{
         locations = "What locations would you work at?"
     }
     
+    export enum API_ROUTES {
+        HOST = "http://localhost:8000/api",
+        LOGIN = "login",
+        MESSAGES = "messages",
+        THREAD = "messages/thread"
+    }
 }
 
 export namespace ColorResources {
