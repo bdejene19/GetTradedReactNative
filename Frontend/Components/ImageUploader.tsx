@@ -1,27 +1,53 @@
 import { View, Text, ViewStyle, StyleProp, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd, faImage } from '@fortawesome/free-solid-svg-icons';
-
+import * as ImagePicker from 'expo-image-picker';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { ImageBackground } from 'react-native';
+import { GenStyle } from '../Common/GlobalStyles';
 interface UploadProps { 
-    label: string;
+    label?: string;
     style?: StyleProp<ViewStyle>;
 }
 export default function ImageUploader(props: UploadProps) {
+  const [selectURI, setURI] = useState("");
+  const Select = async () => {
+    let photo = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    })
+    setURI(photo.assets[0].uri);
+  }
   return (
-    <View style={styles.uploadContainer}>
-      <FontAwesomeIcon size={35} icon={faImage}/>
-      <View style={[styles.bottomRight]}>
-        <FontAwesomeIcon icon={faAdd}/>
-      </View>
+    <View  style={styles.uploadContainer}>
+      {selectURI !== "" 
+        ? 
+
+      <ImageBackground style={[GenStyle.fullHeight, GenStyle.fullWidth]} alt='image from user library' source={{uri: selectURI}}>
+        <TouchableWithoutFeedback style={{width: '100%', height: '100%'}} onPress={Select}/>
+      </ImageBackground>
+      : 
+        <TouchableOpacity style={styles.uploadContainer} onPress={Select}>
+          <FontAwesomeIcon size={35} icon={faImage}/>
+          <View style={[styles.bottomRight]}>
+            <FontAwesomeIcon icon={faAdd}/>
+          </View>
+        </TouchableOpacity>
+      }
+     
+    
     </View>
+
   )
 }
 
 const styles = StyleSheet.create({
   uploadContainer: {
-    width: '25%',
-    height: '40%',
+    width: 100,
+    height: 250,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
