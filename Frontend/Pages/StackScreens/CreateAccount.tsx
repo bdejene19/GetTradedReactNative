@@ -50,10 +50,10 @@ export const CreateAccount = ({ navigation }) => {
     }
     return (
         <View style={[GenStyle.fullHeight, {rowGap: 30}]}>
-            <CommonTextInput
+            <Input
                 placeholder="Bemnet Dejene"
                 label={TextResources.FormStrings.BUSINESS}
-                onChange={(e: string) => setNewAccount({ ...newAccount, businessName: e })}
+                onChangeText={(e: string) => setNewAccount({ ...newAccount, businessName: e })}
             /> 
 
             <View style={styles.mainContent}>
@@ -82,7 +82,7 @@ export const CreateAccount = ({ navigation }) => {
                 />
             </View>
             <MultiBubbleSelect label={TextResources.CreateAccountText.typeSelection} key={'Contractor-Types'} selectLimit={3} bubbles={contractorCategories} style={{rowGap: 15}}/>
-            <Button style={[GenStyle.containerBottom, GenStyle.fullWidth]} disabled={verifyGoNext()} onPress={() => navigation.navigate('Work Locations')}>Next</Button>
+            <Button style={[GenStyle.containerBottom, GenStyle.fullWidth]} disabled={verifyGoNext()} onPress={() => navigation.navigate('Work Locations', newAccount)}>Next</Button>
         </View>
     )
 }
