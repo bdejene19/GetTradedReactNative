@@ -13,6 +13,8 @@ import { CreateAccount } from "./Pages/StackScreens/CreateAccount";
 import WorkLocations from "./Pages/StackScreens/WorkLocations";
 import { Login } from "./Pages/StackScreens/Login";
 import { StackRootParamList, StackLoginRoutes } from "./Pages/types";
+import { Provider } from 'react-redux';
+import { store } from './ReduxStore/store';
 
 const Stack = createNativeStackNavigator<StackRootParamList>();
 const DrawerMenuIcon = () => (
@@ -29,48 +31,52 @@ export default function App() {
   };
   return (
     <>
-      <IconRegistry icons={EvaIconsPack} />
+      <Provider store={store}>
 
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <NavigationContainer independent={true}>
-          <Stack.Navigator>
-            <Stack.Screen
-              name={StackLoginRoutes.LOGIN}
-              options={({ route, navigation }) => ({
-                headerBackTitleVisible: false,
-                headerBackVisible: false,
-                headerBackButtonMenuEnabled: false,
-              })}
-              component={Login}
-            />
+        <IconRegistry icons={EvaIconsPack} />
 
-            <Stack.Screen
-              name={StackLoginRoutes.CREATE_ACCOUNT}
-              options={({ route, navigation }) => ({
-                title: "Create Account",
-                contentStyle: loginStyle.screenStyle,
-              })}
-              component={CreateAccount}
-            />
-            <Stack.Screen
-              name={StackLoginRoutes.WORK_LOCATIONS}
-              options={({ route, navigation }) => ({
-                title: "Locations",
-                contentStyle: loginStyle.screenStyle,
-              })}
-              component={WorkLocations}
-            />
-            <Stack.Screen
-              name={StackLoginRoutes.MAIN}
-              options={({ route, navigation }) => ({
-                  title: "",
-                  headerShown: false,
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <NavigationContainer independent={true}>
+            <Stack.Navigator>
+              <Stack.Screen
+                name={StackLoginRoutes.LOGIN}
+                options={({ route, navigation }) => ({
+                  headerBackTitleVisible: false,
+                  headerBackVisible: false,
+                  headerBackButtonMenuEnabled: false,
                 })}
-              component={Main}
-           />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ApplicationProvider>
+                component={Login}
+              />
+
+              <Stack.Screen
+                name={StackLoginRoutes.CREATE_ACCOUNT}
+                options={({ route, navigation }) => ({
+                  title: "Create Account",
+                  contentStyle: loginStyle.screenStyle,
+                })}
+                component={CreateAccount}
+              />
+              <Stack.Screen
+                name={StackLoginRoutes.WORK_LOCATIONS}
+                options={({ route, navigation }) => ({
+                  title: "Locations",
+                  contentStyle: loginStyle.screenStyle,
+                })}
+                component={WorkLocations}
+              />
+              <Stack.Screen
+                name={StackLoginRoutes.MAIN}
+                options={({ route, navigation }) => ({
+                    title: "",
+                    headerShown: false,
+                  })}
+                component={Main}
+            />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ApplicationProvider>
+      </Provider>
+
     </>
   );
 }

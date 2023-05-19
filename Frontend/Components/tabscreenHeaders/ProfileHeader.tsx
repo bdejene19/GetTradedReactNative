@@ -11,7 +11,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer'
 export const ProfileHeaderRight = () => {
   return (
     <View style={styles.container}>
-        <TouchableOpacity onPress={() => Share.share({ url: "www.facebook.com", message: "hi"})}>
+        <TouchableOpacity onPress={() => Share.share({ url: "www.facebook.com", message: `Share Profile`})}>
             <FontAwesomeIcon icon={faShareFromSquare} size={24}/>
         </TouchableOpacity>
         <TouchableOpacity>
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         columnGap: 30,
+        padding: 15,
     }
 
 })
