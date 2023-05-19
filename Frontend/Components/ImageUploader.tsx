@@ -1,14 +1,16 @@
 import { View, Text, ViewStyle, StyleProp, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd, faImage } from '@fortawesome/free-solid-svg-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ImageBackground } from 'react-native';
 import { GenStyle } from '../Common/GlobalStyles';
+import { ImageUploadContext } from '../Pages/StackScreens/WorkLocations';
 interface UploadProps { 
-    label?: string;
-    style?: StyleProp<ViewStyle>;
+  imgID: number;
+  label?: string;
+  style?: StyleProp<ViewStyle>;
 }
 export default function ImageUploader(props: UploadProps) {
   const [selectURI, setURI] = useState("");

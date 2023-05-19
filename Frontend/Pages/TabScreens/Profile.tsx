@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faGears, faHome, faPenClip, faSignOut } from '@fortawesome/free-solid-svg-icons'
 import Settings from '../DrawerScreen/Settings'
 import { Login } from '../StackScreens/Login'
+import EditProfile from '../DrawerScreen/EditProfile'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -93,7 +94,7 @@ export const ProfileScreens = ({ navigation, route }) => {
         />
         <ProfileDrawers.Screen
           name={ProfileDrawerRoutes.EDIT_PROFILE}
-          component={Settings}
+          component={EditProfile}
         />
         <ProfileDrawers.Screen
           name={ProfileDrawerRoutes.SETTINGS}

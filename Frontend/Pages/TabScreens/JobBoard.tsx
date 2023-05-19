@@ -1,7 +1,7 @@
 import { View, ViewStyle } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import JobCard from '../../Components/JobCard'
+import JobCard from '../../Components/jobs/JobCard'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import ContractorTypeJobsBoard from '../StackScreens/ContractorTypeJobsBoard'
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         columnGap: 25,
-        rowGap: 75,
+        rowGap: 25,
         justifyContent: 'center',
         alignContent: 'center',
     }
