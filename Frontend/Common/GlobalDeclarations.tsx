@@ -34,8 +34,13 @@ export namespace TextResources{
     export enum API_ROUTES {
         HOST = "http://localhost:8000/api",
         LOGIN = "login",
+        JOBS = "jobs",
         MESSAGES = "messages",
-        THREAD = "messages/thread"
+        THREAD = "messages/thread",
+        PROFILE = "profile",
+        WORK_IMAGES = "profile/workImages",
+        LOCATIONS = "profile/locations"
+
     }
 }
 
@@ -44,5 +49,38 @@ export namespace ColorResources {
         PRIMARY = '',
         SECONDARY = '',
         TERTIARY = '',
+    }
+}
+
+export namespace BackendTypes {
+    export type User = {
+         user_id: number;
+        name: string;
+        email: string;
+        phone: string;
+        password?: string;
+    }
+
+    export type Inbox = {
+        inbox_id: number;
+        user_id: number;
+    }
+
+    export type WorkImage = {
+        image_id: number;
+        user_id: number;
+        file_path: string;
+    }
+
+    export type WorkLocation = {
+        location_id: number;
+        name: string;
+        user_id: number;
+    }
+
+    export type MessageThread = {
+        thread_id: number;
+        inbox_id: number;
+        user_id: number;
     }
 }

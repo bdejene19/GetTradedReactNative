@@ -34,7 +34,7 @@ enum DrawerRoutes {
 
 export type StackRootParamList = {
     [StackLoginRoutes.LOGIN]: undefined,
-    [StackLoginRoutes.CREATE_ACCOUNT]: undefined,
+    [StackLoginRoutes.CREATE_ACCOUNT]: NewAccount,
     [StackLoginRoutes.WORK_LOCATIONS]: undefined,
     [StackLoginRoutes.MAIN]: ProfileParams,
     [StackLoginRoutes.CHAT]: undefined,
@@ -70,6 +70,11 @@ export type TabRootParamList = {
     [TabRoutes.MESSAGES]: undefined,
 }
 
+type NewAccount = {
+    businessName: string;
+    email: string;
+    contractorTypes?: string[];
+}
 
 type ProfileParams = {
     user_id: number; 
