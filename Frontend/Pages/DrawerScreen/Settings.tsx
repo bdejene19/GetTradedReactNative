@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React, { useState } from 'react'
 import { Switch } from 'react-native-gesture-handler'
 import { FontSize } from '../../Common/GlobalStyles';
-import { toggleDark, toggleLarge } from "../../ReduxStore/slices/SettingSlice"
+import { toggleDark, toggleLarge } from "../../ReduxStore/slices/settings"
 import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks';
 
 interface SwitchOption {
@@ -11,10 +11,9 @@ interface SwitchOption {
     onSwitchChange: () => void;
 }
 export default function Settings() {
-    const [settings, setSettings] = useState({ isDark: false, isLarge: false});
     const { isDark, isLarge } = useAppSelector((state) => ({
-      isDark: state.settings.isDark,
-      isLarge: state.settings.isLarge
+      isDark: state.settingStore.isDark,
+      isLarge: state.settingStore.isLarge
     }))
 
     const dispatch = useAppDispatch(); 
