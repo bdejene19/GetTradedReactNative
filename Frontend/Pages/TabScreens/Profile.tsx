@@ -12,8 +12,9 @@ import { createDrawerNavigator, DrawerContent, DrawerContentScrollView, DrawerIt
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faGears, faHome, faPenClip, faSignOut } from '@fortawesome/free-solid-svg-icons'
 import Settings from '../DrawerScreen/Settings'
-import { Login } from '../StackScreens/Login'
 import EditProfile from '../DrawerScreen/EditProfile'
+import { useAppDispatch } from '../../ReduxStore/slices/hooks'
+import { setUserStore } from '../../ReduxStore/slices/user'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -27,8 +28,14 @@ const GalleryStyle = StyleSheet.create({
 })
 function Profile({ navigation, route }) {
   const userParams = route.params;
-  console.log('profile params: ', userParams);
-  const { work_images } = route.params;
+  const { work_images } = route.params
+  const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+    if (userParams) {
+      dispatch(setUserStore(route.params))
+    }
+  }, [userParams])
   return (
     <ScrollView style={styles.pageStyle}>
         <ProfileContact workLocations={route.params.work_locations} businessName={userParams.name} email={userParams.email} phone={userParams.phone} profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
@@ -109,9 +116,6 @@ export const ProfileScreens = ({ navigation, route }) => {
           component={Settings}
         />
      
-
-    
-       
       </ProfileDrawers.Navigator>
     </NavigationContainer>
   )

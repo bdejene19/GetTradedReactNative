@@ -17,7 +17,6 @@ router.post("/", async (req, res) => {
       include: [
         { model: WorkLocation, attributes: ["location_id", "name"] },
         { model: WorkImage, attributes: ["image_id", "file_path"] },
-        { model: Inbox, attributes: ["inbox_id"] },
       ],
     });
 
