@@ -3,7 +3,7 @@ import { BackendTypes } from "../../Common/GlobalDeclarations";
 
 interface UserStore extends BackendTypes.User { 
     work_images:  BackendTypes.WorkImage[], 
-    locations: BackendTypes.WorkLocation[],
+    work_locations: BackendTypes.WorkLocation[],
 }
 const initialState: UserStore = {
     name: "",
@@ -12,7 +12,7 @@ const initialState: UserStore = {
     user_id: -1,
     password: "",
     work_images: [],
-    locations: [],
+    work_locations: [],
 }
 
 const userSlice = createSlice({
@@ -44,11 +44,11 @@ const userSlice = createSlice({
             }
             
         },
-        setWorkLocations: (state, action: PayloadAction<BackendTypes.WorkLocation[]>) => {
+        setWorkwork_locations: (state, action: PayloadAction<BackendTypes.WorkLocation[]>) => {
             if (action.payload) {
                 return {
                     ...state,
-                    locations: action.payload
+                    work_locations: action.payload
                 }
             }
             
@@ -80,13 +80,13 @@ const userSlice = createSlice({
         },
 
         addLocation: (state, action: PayloadAction<BackendTypes.WorkLocation>) => {
-            const {locations} = state;
+            const {work_locations} = state;
             const newLocation = action.payload
-            if (!locations.includes(newLocation)) {
-                locations.push(newLocation);
+            if (!work_locations.includes(newLocation)) {
+                work_locations.push(newLocation);
                 return {
                     ...state,
-                    locations: locations,
+                    work_locations: work_locations,
                 }
             }
 
@@ -96,10 +96,10 @@ const userSlice = createSlice({
         removeLocation: (state, action: PayloadAction<{location_id: number}>) => {
             const { location_id } = action.payload;
             if (location_id) {
-                const removedLocationsArr =  state.locations.filter(location => location.location_id !== location_id)
+                const removedwork_locationsArr =  state.work_locations.filter(location => location.location_id !== location_id)
                 return {
                     ...state,
-                    locations: removedLocationsArr
+                    work_locations: removedwork_locationsArr
                 }
             }
         },

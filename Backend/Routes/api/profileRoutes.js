@@ -81,4 +81,37 @@ router.get("/locations/:user_id", async (req, res) => {
       .json({ msg: "Server request unable to find work locations", e });
   }
 });
+
+// delete work location by location_id and user_id
+
+router.delete("/locations/:location_id", async (req, res) => {
+  const location_id = req.params.location_id;
+  if (location_id) {
+    try {
+      const newLocations = await WorkLocation.destroy({
+        where: {
+          location_id: location_id,
+        },
+      }).catch((err) =>
+        res
+          .status(500)
+          .json({ msg: "Error deleting location from database", err })
+      );
+
+      console.log("my deleted location: ", newLocations);
+
+      if (!newLocations) {
+        return res
+          .status(404)
+          .json({ msg: "Unable to find location by location_id in server" });
+      }
+
+      return res.status(200).json({ hi: "hola" });
+    } catch (e) {
+      res
+        .status(404)
+        .json({ msg: "Error deleting location in server. Check connection" });
+    }
+  }
+});
 module.exports = router;

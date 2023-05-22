@@ -42,13 +42,19 @@ export default function EditProfile(props: BackendTypes.User) {
         )
     }
     const EditProvider = ({ children }) => {
-        return (
-            <View style={{padding: 15,}}>
+        const Header = (props: { title: string }) => {
+            return (
                 <View style={styles.editHeader}>
                     <TouchableOpacity onPress={() => setIsOpen(false)}>
                         <FontAwesomeIcon icon={faXmarkCircle} size={32}/>
                     </TouchableOpacity>
+                    <Text style={{fontSize: 32}}>Edit {props.title}</Text>
                 </View>
+            )
+        }
+        return (
+            <View style={{padding: 15, rowGap: 30}}>
+                <Header title={modalSelected}/>
                 {children}
             </View>
         )
@@ -89,5 +95,8 @@ const styles = StyleSheet.create({
     },
     editHeader: {
         paddingTop: 30,
+        flexDirection: 'row',
+        columnGap: 20,
+        alignItems: 'center',
     },
 })

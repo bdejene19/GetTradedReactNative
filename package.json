@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently  \"cd Frontend && npx expo start\" \"cd Backend && node index.ts \""
+    "start-server": "concurrently  \"cd Backend && nodemon index.js \" \" cd Backend && node seeds/seeds.js\"",
+    "start-client": "cd Frontend && npx expo start",
+    "sql": "cd Backend && mysql -u root -p"
   },
   "author": "Bemnet",
   "license": "MIT",
