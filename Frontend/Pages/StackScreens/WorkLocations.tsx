@@ -6,8 +6,9 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { Locator } from '../../Common/Locator'
 import { TextResources } from '../../Common/GlobalDeclarations'
 import ImageUploader from '../../Components/ImageUploader'
-import { FontSize, GenStyle } from '../../Common/GlobalStyles'
+import { GenStyle } from '../../Common/GlobalStyles'
 import { ImagePickerCanceledResult, ImagePickerResult } from 'expo-image-picker';
+import { useIsLarge } from '../../Common/customHooks';
 
 export type SelectedImage = {
   [key: number]: {
@@ -38,6 +39,7 @@ const initialPhotos: SelectedImage = {
 export const ImageUploadContext = createContext({});
 export default function WorkLocations({ navigation, route}) {
   const accountDetails = route.params;
+  const fontSize = useIsLarge();
   const [photos, setPhotos] = useState<SelectedImage>(initialPhotos);
   const pickPhoto = async (key: number) => {
     let photo = await ImagePicker.launchImageLibraryAsync({
@@ -54,7 +56,7 @@ export default function WorkLocations({ navigation, route}) {
   return (
     <ScrollView style={{rowGap: 40, height: '100%'}}>
         {/* <Locator label={TextResources.CreateAccountText.locations} location={''}/> */}
-        <Text style={FontSize.pageHeader}>Upload Images of your Work!</Text>
+        <Text style={fontSize.pageHeader}>Upload Images of your Work!</Text>
         <View style={{rowGap: 40, paddingTop: 30, flexDirection: 'row', flexWrap: 'wrap', columnGap: 12, justifyContent:'space-evenly' }}>
           <ImageUploadContext.Provider value={{photos, setPhotos}}>
             <ImageUploader key={'photo-1'} imgID={1}/>

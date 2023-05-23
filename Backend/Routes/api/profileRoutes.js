@@ -30,6 +30,33 @@ router.get("/:user_id", async (req, res) => {
   }
 });
 
+router.put("/:user_id", async (req, res) => {
+  const user_id = req.params.user_id;
+  const newContact = req.body;
+  console.log("my new contact: ", newContact);
+  try {
+    const userEditing = await User.findOne({
+      where: {
+        user_id: user_id,
+      },
+    }).catch((e) =>
+      res.status(500).json({ msg: "Error finding user to edit", e })
+    );
+
+    if (userEditing) {
+      const editContact = await userEditing.update({
+        ...newContact,
+      });
+      console.log("my edit contact server : ", editContact);
+      if (!editContact) {
+        return res
+          .status(505)
+          .json({ msg: "Error updating user in MySQL database" });
+      }
+      return res.status(200).json(editContact);
+    }
+  } catch (e) {}
+});
 // get work images data by user_id
 router.get("/workImages/:user_id", async (req, res) => {
   const id = req.params.user_id;
@@ -98,15 +125,13 @@ router.delete("/locations/:location_id", async (req, res) => {
           .json({ msg: "Error deleting location from database", err })
       );
 
-      console.log("my deleted location: ", newLocations);
-
       if (!newLocations) {
         return res
           .status(404)
           .json({ msg: "Unable to find location by location_id in server" });
       }
 
-      return res.status(200).json({ hi: "hola" });
+      return res.status(200).json(newLocations);
     } catch (e) {
       res
         .status(404)

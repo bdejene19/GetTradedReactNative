@@ -2,7 +2,8 @@ import { View, Text, ViewStyle, Image, ImageBackground } from 'react-native'
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler';
 import { ImageStyle } from 'react-native';
-import { FontSize, GenStyle } from '../../Common/GlobalStyles';
+import { GenStyle } from '../../Common/GlobalStyles';
+import { useIsLarge } from '../../Common/customHooks';
 
 interface GalleryImg {
   image_id: number;
@@ -16,9 +17,10 @@ interface GalleryScrollProps {
     galleryImgs: GalleryImg[];
 }
 export default function GalleryScroll(props: GalleryScrollProps) {
+  const fontSize = useIsLarge();
   return (
     <View style={[GenStyle.fullWidth, { rowGap: 5, backgroundColor: 'white', paddingVertical: 10}]}>
-        {props.label ? <Text style={[FontSize.subHeader, {paddingHorizontal: 15, }]}>{props.label}</Text> : null}
+        {props.label ? <Text style={[fontSize.subHeader, {paddingHorizontal: 15, }]}>{props.label}</Text> : null}
         <ScrollView 
           horizontal={true} 
           style={{flexDirection: 'row',  width: '100%', paddingLeft: 15, columnGap: 30}} 

@@ -8,6 +8,7 @@ import { faContactBook, faContactCard, faImages, faMapLocation, faPencil, faXmar
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { EditContact, EditGallery, EditLocations } from '../../Components/profile/EditContent'
 import { useAppSelector } from '../../ReduxStore/slices/hooks'
+import { useIsLarge } from '../../Common/customHooks'
 
 interface HeaderEditProps {
     title: string;
@@ -28,13 +29,15 @@ export default function EditProfile(props: BackendTypes.User) {
         password: state.userStore.password,
         user_id: state.userStore.user_id
       }))
+
+      const fontSize = useIsLarge()
     const HeaderEdit = (props: HeaderEditProps) => {
         return (
-            <View style={{width: '100%'}}>
-                <TouchableHighlight underlayColor={'lightblue'} onPress={props.onEdit}>
+            <View style={{width: '100%', height: '30%'}}>
+                <TouchableHighlight style={{height: '100%', alignItems: 'center', justifyContent: 'center'}} underlayColor={'lightblue'} onPress={props.onEdit}>
                     <View  style={{ flexDirection: 'row', padding: 15, height: 100, columnGap: 50, alignItems: 'center'}}>
                         <FontAwesomeIcon icon={props.icon} size={60}/>
-                        <Text style={[{fontSize: 26, fontWeight: '700'}]}>{props.title}</Text>
+                        <Text style={[fontSize.pageHeader,{ fontWeight: '700'}]}>{props.title}</Text>
                     </View>
                     
                 </TouchableHighlight>
@@ -44,7 +47,7 @@ export default function EditProfile(props: BackendTypes.User) {
     const EditProvider = ({ children }) => {
         const Header = (props: { title: string }) => {
             return (
-                <View style={styles.editHeader}>
+                <View style={[styles.editHeader, {backgroundColor: "#F47742", padding: 15, }]}>
                     <TouchableOpacity onPress={() => setIsOpen(false)}>
                         <FontAwesomeIcon icon={faXmarkCircle} size={32}/>
                     </TouchableOpacity>
@@ -53,7 +56,7 @@ export default function EditProfile(props: BackendTypes.User) {
             )
         }
         return (
-            <View style={{padding: 15, rowGap: 30}}>
+            <View style={{rowGap: 30}}>
                 <Header title={modalSelected}/>
                 {children}
             </View>
@@ -76,7 +79,7 @@ export default function EditProfile(props: BackendTypes.User) {
 
     }
   return (
-    <View style={{rowGap: 50, alignItems: 'center', justifyContent:"center", height: '100%',}}>
+    <View style={{alignItems: 'center', backgroundColor: "#FFE19C", justifyContent:"center", height: '100%',}}>
         <HeaderEdit title={`Business ${TextResources.FormStrings.CONTACT}`} onEdit={() => openModal('Business')} icon={faContactCard}/>
         <HeaderEdit title={`Work Locations`} onEdit={() => openModal('Work Locations')} icon={faMapLocation}/>
         <HeaderEdit title={`Showcase Gallery`} onEdit={() => openModal('Showcase Gallery')} icon={faImages}/>
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
 
     },
     editHeader: {
-        paddingTop: 30,
+        paddingTop: 50,
         flexDirection: 'row',
         columnGap: 20,
         alignItems: 'center',

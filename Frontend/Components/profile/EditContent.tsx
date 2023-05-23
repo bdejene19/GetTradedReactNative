@@ -2,11 +2,12 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import { BackendTypes, TextResources } from '../../Common/GlobalDeclarations'
 import { Button, IconElement, Input, List, ListItem } from '@ui-kitten/components'
-import { useAppSelector } from '../../ReduxStore/slices/hooks'
+import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks'
 import { FontSize } from '../../Common/GlobalStyles'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faDeleteLeft, faEye, faEyeSlash, faSearch, faSearchLocation } from '@fortawesome/free-solid-svg-icons'
+import { faCircleXmark, faDeleteLeft, faEye, faEyeSlash, faSearch, faSearchLocation } from '@fortawesome/free-solid-svg-icons'
+import { removeLocation, setUserContact } from '../../ReduxStore/slices/user'
 
 interface DeleteIcon {
     onDelete: (location: number) => Promise<void>;
@@ -26,6 +27,8 @@ export const EditContact  = () =>  {
         password: state.userStore.password,
         user_id: state.userStore.user_id
       }))
+
+      const dispatch = useAppDispatch();
       const [contact, setContact] = useState<BackendTypes.User>(user);
       const validateButton = () => {
           let disableBtn = true
@@ -35,6 +38,29 @@ export const EditContact  = () =>  {
             }
           })
           return disableBtn;
+      }
+      
+      const editContactInfo = async (user_id: number) => {
+          try {
+            const editRequest = (await fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.PROFILE}/${user_id}`, {
+                method: "PUT",
+                body: JSON.stringify(contact),
+                headers: {
+                    "Content-Type": "application/json"
+                  }
+            }))
+
+            if (editRequest.status === 200) {
+                const edited = await editRequest.json()
+                dispatch(setUserContact(edited))
+            }
+
+          } catch(e) {
+              console.log("Error editing contact info", e);
+          }
+         
+
+
       }
     return (
         <View style={styles.contactContainer}>
@@ -48,7 +74,7 @@ export const EditContact  = () =>  {
                 accessoryRight={() => <RenderInputSecure onChange={() => {}} secure={true}/>}   
                 value={contact.password}
             />
-            <Button appearance={'filled'} disabled={validateButton()}>Edit Contact</Button>
+            <Button appearance={'filled'} disabled={validateButton()} onPress={() => editContactInfo(contact.user_id)}>Edit Contact</Button>
         </View>
     )
 }
@@ -59,43 +85,52 @@ export const EditLocations = () => {
         user_id: state.userStore.user_id
     }))
 
+    const dispatch = useAppDispatch();
 
     const renderItem = ({item, index}: {item: BackendTypes.WorkLocation, index: number}) => {
-        const deleteItemIcon = (props: DeleteIcon): IconElement => (
+        const DeleteItemIcon = (props: DeleteIcon): IconElement => (
             <TouchableOpacity onPress={() => props.onDelete(item.location_id)}>
-                <FontAwesomeIcon icon={faDeleteLeft}/>
+                <FontAwesomeIcon icon={faCircleXmark}/>
             </TouchableOpacity>
           );
 
           const deleteLocation = async (location_id: number) => {
             try {   
-                const deleted = await ((await fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.LOCATIONS}/${location_id}`)).json())
-                console.log('my deleted: ', deleted);
+                const res = (await fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.LOCATIONS}/${location_id}`, {
+                    method: "DELETE",
+                }))
+
+                if (res.status === 200) {
+                    const deleted = await res.json();
+                    dispatch(removeLocation({location_id: location_id}))
+                                    }
             } catch(err) {
                 console.log("ERror deleting location: ")
             }
           }
         return (
-            <ListItem
-                title={`${item.name}`}
-                disabled
-                key={item.location_id}
-                accessoryRight={deleteItemIcon({ onDelete: () => deleteLocation(item.location_id)})}
-            />
+            <View>
+                <ListItem
+                    title={`${item.name}`}
+                    disabled
+                    key={item.location_id}
+                    accessoryRight={() => <DeleteItemIcon onDelete={() => deleteLocation(item.location_id)}/>}
+                />
+            </View>
+          
         )
     }
     const [query, setQuery] = useState("");
         return (
-            <View>
+            <View style={{paddingHorizontal: 15, rowGap: 15,}}>
                 <Input 
-                    style={{width: '97.5%'}}
+
                     placeholder={TextResources.FormStrings.SEARCH} 
                     accessoryRight={<FontAwesomeIcon icon={faSearchLocation}/>}
                     value={query}
                     onChangeText={(text: string) => setQuery(text)}
                 />
                 <List 
-                    style={{}}
                     data={locations}
                     renderItem={renderItem}
                 />
@@ -121,5 +156,6 @@ export const EditGallery = (props:{ imgs: BackendTypes.WorkImage[] }) => useMemo
 const styles = StyleSheet.create({
     contactContainer: {
         rowGap: 25,
+        padding: 15,
     }
 })
