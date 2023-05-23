@@ -14,6 +14,7 @@ import { faGears, faHome, faPenClip, faSignOut } from '@fortawesome/free-solid-s
 import Settings from '../DrawerScreen/Settings'
 import EditProfile from '../DrawerScreen/EditProfile'
 import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks'
+
 import { setUserStore } from '../../ReduxStore/slices/user'
 
 const GalleryStyle = StyleSheet.create({
@@ -32,6 +33,7 @@ function Profile({ navigation, route }) {
   const { user } = useAppSelector((state) => ({
     user: state.userStore
   }))
+
 
   useEffect(() => {
     if (userParams) {

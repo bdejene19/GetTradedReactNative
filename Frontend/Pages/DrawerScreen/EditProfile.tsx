@@ -10,6 +10,7 @@ import { EditContact, EditGallery, EditLocations } from '../../Components/profil
 import { useAppSelector } from '../../ReduxStore/slices/hooks'
 import { useIsLarge } from '../../Common/customHooks'
 
+
 interface HeaderEditProps {
     title: string;
     icon: IconProp;
@@ -31,6 +32,7 @@ export default function EditProfile(props: BackendTypes.User) {
       }))
 
       const fontSize = useIsLarge()
+
     const HeaderEdit = (props: HeaderEditProps) => {
         return (
             <View style={{width: '100%', height: '30%'}}>
@@ -80,6 +82,7 @@ export default function EditProfile(props: BackendTypes.User) {
     }
   return (
     <View style={{alignItems: 'center', backgroundColor: "#FFE19C", justifyContent:"center", height: '100%',}}>
+
         <HeaderEdit title={`Business ${TextResources.FormStrings.CONTACT}`} onEdit={() => openModal('Business')} icon={faContactCard}/>
         <HeaderEdit title={`Work Locations`} onEdit={() => openModal('Work Locations')} icon={faMapLocation}/>
         <HeaderEdit title={`Showcase Gallery`} onEdit={() => openModal('Showcase Gallery')} icon={faImages}/>
@@ -101,5 +104,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         columnGap: 20,
         alignItems: 'center',
+
     },
 })

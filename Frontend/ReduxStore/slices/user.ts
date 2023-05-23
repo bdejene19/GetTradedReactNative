@@ -13,6 +13,7 @@ const initialState: UserStore = {
     password: "",
     work_images: [],
     work_locations: [],
+
 }
 
 const userSlice = createSlice({
@@ -49,6 +50,7 @@ const userSlice = createSlice({
                 return {
                     ...state,
                     work_locations: action.payload
+
                 }
             }
             
@@ -87,6 +89,7 @@ const userSlice = createSlice({
                 return {
                     ...state,
                     work_locations: work_locations,
+
                 }
             }
 
@@ -100,6 +103,7 @@ const userSlice = createSlice({
                 return {
                     ...state,
                     work_locations: removedwork_locationsArr
+
                 }
             }
         },
