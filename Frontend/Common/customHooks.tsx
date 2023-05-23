@@ -1,4 +1,5 @@
 import {useEffect, useState } from 'react'
+import { useAppSelector } from '../ReduxStore/slices/hooks';
 import { DarkMode, FontSize, FontSizeLarge, LightMode } from './GlobalStyles';
 
 export const useIsDark = (props: { isDark: boolean }) =>  {
@@ -13,15 +14,18 @@ export const useIsDark = (props: { isDark: boolean }) =>  {
   return styles
 }
 
-export const useIsLarge = (props: { isLarge: boolean }) =>  {
-    const [fontSizes, setFontSizes] = useState(props.isLarge ? FontSizeLarge : FontSize);
+export const useIsLarge = () =>  {
+    const { isLarge } = useAppSelector((state) => ({
+        isLarge: state.settingStore.isLarge
+    }))
+    const [fontSizes, setFontSizes] = useState(isLarge ? FontSizeLarge : FontSize);
     useEffect(() => {
-        if (props.isLarge) {
+        if (isLarge) {
             setFontSizes(FontSizeLarge);
         } else {
             setFontSizes(FontSize)
         }
-    }, [props.isLarge])
+    }, [isLarge])
   return fontSizes
 }
 

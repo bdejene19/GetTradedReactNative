@@ -13,7 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faGears, faHome, faPenClip, faSignOut } from '@fortawesome/free-solid-svg-icons'
 import Settings from '../DrawerScreen/Settings'
 import EditProfile from '../DrawerScreen/EditProfile'
-import { useAppDispatch } from '../../ReduxStore/slices/hooks'
+import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks'
+
 import { setUserStore } from '../../ReduxStore/slices/user'
 
 const GalleryStyle = StyleSheet.create({
@@ -28,9 +29,12 @@ const GalleryStyle = StyleSheet.create({
 })
 function Profile({ navigation, route }) {
   const userParams = route.params;
-  const { work_images } = route.params
   const dispatch = useAppDispatch();
-  
+  const { user } = useAppSelector((state) => ({
+    user: state.userStore
+  }))
+
+
   useEffect(() => {
     if (userParams) {
       dispatch(setUserStore(route.params))
@@ -38,13 +42,13 @@ function Profile({ navigation, route }) {
   }, [userParams])
   return (
     <ScrollView style={styles.pageStyle}>
-        <ProfileContact workLocations={route.params.work_locations} businessName={userParams.name} email={userParams.email} phone={userParams.phone} profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
+        <ProfileContact workLocations={user.work_locations} businessName={user.name} email={user.email} phone={user.phone} profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
         
-        <BusinessContact email={userParams.email} phone={userParams.phone} linkedIn=''/>
+        <BusinessContact email={user.email} phone={user.phone} linkedIn=''/>
         <GalleryScroll 
           label='Our Work' 
           containerStyle={{...GalleryStyle.rows}} 
-          galleryImgs={work_images} 
+          galleryImgs={user.work_images} 
           scrollHorizontal={true} 
           imgCardStyle={{ padding: 100, height: 300, width: 350 }}
         />
@@ -102,6 +106,14 @@ export const ProfileScreens = ({ navigation, route }) => {
         <ProfileDrawers.Screen
           name={ProfileDrawerRoutes.EDIT_PROFILE}
           component={EditProfile}
+          options={{ 
+            headerTitle: ProfileDrawerRoutes.EDIT_PROFILE,
+            headerLeft: ProfileHeaderLeft,
+            headerShadowVisible: false,
+            headerStyle: {
+                backgroundColor: '#F47742',
+            },  
+          }}
         />
         <ProfileDrawers.Screen
           name={ProfileDrawerRoutes.SETTINGS}

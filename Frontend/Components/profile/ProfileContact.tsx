@@ -3,20 +3,20 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { FontSize, GenStyle } from '../../Common/GlobalStyles';
+import { BackendTypes } from '../../Common/GlobalDeclarations';
+import { useIsLarge } from '../../Common/customHooks';
 
-interface Location {
-  id: number;
-  name: string;
-}
+
 interface ContactInfo {
     businessName: string;
     email: string;
     phone: string;
     profilePicture: string;
-    workLocations: Location[];
+    workLocations: BackendTypes.WorkLocation[];
 }
 
 export default function ProfileContact(props: ContactInfo) {
+  const fontSize = useIsLarge();
   const Bubble = (props: { text: string; }) => {
     return (
       <View style={styles.bubble}>
@@ -26,10 +26,10 @@ export default function ProfileContact(props: ContactInfo) {
   }
   return (
     <View style={styles.contactContainer}>
-      <Text style={[FontSize.subHeader, styles.header]}>{props.businessName}</Text>
+      <Text style={[fontSize.subHeader, styles.header]}>{props.businessName}</Text>
       <Image style={[GenStyle.circle, styles.profileImgSize  ]}source={{uri: "https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png"}}/>
       <View style={styles.locations}>
-        {props?.workLocations.map((location) => <Bubble key={location.id} text={location.name}/>)}
+        {props?.workLocations.map((location) => <Bubble key={location.location_id} text={location.name}/>)}
       </View>
 
     </View>
