@@ -109,8 +109,31 @@ router.get("/locations/:user_id", async (req, res) => {
   }
 });
 
-// delete work location by location_id and user_id
+router.post("/location/new", async (req, res) => {
+  const newLocation = req.body;
+  try {
+    const createdLocation = await WorkLocation.create(newLocation).catch(
+      (err) =>
+        res
+          .status(500)
+          .json({ msg: "Unable to add new location to database", err })
+    );
 
+    if (!createdLocation) {
+      return res
+        .status(404)
+        .json({ msg: "Server unable to create new location" });
+    }
+
+    return res.status(200).json(createdLocation);
+  } catch (err) {
+    return res
+      .status(505)
+      .json({ msg: "Error adding new location via server", err });
+  }
+});
+
+//delete work location by location_id and user_id
 router.delete("/locations/:location_id", async (req, res) => {
   const location_id = req.params.location_id;
   if (location_id) {
@@ -132,6 +155,37 @@ router.delete("/locations/:location_id", async (req, res) => {
       }
 
       return res.status(200).json(newLocations);
+    } catch (e) {
+      res
+        .status(404)
+        .json({ msg: "Error deleting location in server. Check connection" });
+    }
+  }
+});
+
+// creating new work_image by user_id
+router.post("/workImages/new", async (req, res) => {});
+
+// deleting workImage by image_id
+router.delete("/workImages/:image_id", async (req, res) => {
+  const image_id = req.params.image_id;
+  if (image_id) {
+    try {
+      const deletedImage = await WorkImage.destroy({
+        where: {
+          image_id: image_id,
+        },
+      }).catch((err) =>
+        res.status(500).json({ msg: "Error deleting image from database", err })
+      );
+
+      if (!deletedImage) {
+        return res
+          .status(404)
+          .json({ msg: "Unable to find image by image_id in server" });
+      }
+
+      return res.status(200).json(deletedImage);
     } catch (e) {
       res
         .status(404)

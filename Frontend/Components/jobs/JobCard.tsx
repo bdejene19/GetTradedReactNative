@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, ViewStyle, ImageBackground } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useIsLarge } from '../../Common/customHooks';
 
 interface CardProps {
     header: string;
@@ -12,9 +13,10 @@ interface CardProps {
     onPress: () => void;
 }
 export default function JobCard(props: CardProps) {
+    const fontSize = useIsLarge();
   return (
     <TouchableOpacity style={props.cardStyle} onPress={props.onPress}>
-        <Text style={styles.headerStyle}>{props.header}</Text>
+        <Text style={[styles.headerStyle, fontSize.regText]}>{props.header}</Text>
         <ImageBackground  style={{height: '90%',}} resizeMode='cover' alt={props.header} source={{uri: props.bgImage}}>
         </ImageBackground>
         {/* <View style={[styles.bottomStyle, { backgroundColor: props.bottomColor}]}></View> */}

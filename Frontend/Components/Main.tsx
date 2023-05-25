@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -31,7 +31,9 @@ export default function Main({ navigation, route }) {
         <Tab.Navigator>
             <Tab.Screen 
                 name={TabRoutes.PROFILE}
-                children={() => <ProfileScreens navigation={navigation} route={route}/>}
+                children={() => useMemo(() => {
+                    return <ProfileScreens navigation={navigation} route={route}/>
+                }, [])}
                 options={({ navigation, route }) => ({ 
                     headerShown: false,
                     tabBarIcon: ProfileIcon
@@ -39,7 +41,9 @@ export default function Main({ navigation, route }) {
             />
             <Tab.Screen 
                 name={TabRoutes.JOBS}
-                component={JobBoard}
+                children={( ) => useMemo(() => {
+                    return <JobBoard navigation={navigation} route={route}/>
+                }, [])}
                 options={{ 
                     headerShown: false,
                     tabBarIcon: JobsIcon
@@ -47,7 +51,9 @@ export default function Main({ navigation, route }) {
             />
             <Tab.Screen 
                 name={TabRoutes.MESSAGES} 
-                children={() => <MessageBoard navigation={navigation} route={route}/>}
+                children={( ) => useMemo(() => {
+                    return <MessageBoard navigation={navigation} route={route}/>
+                }, [])}
                 options={({ navigation,}) => ({ headerShown: false, tabBarIcon: MessageIcon })}
             />
         </Tab.Navigator>

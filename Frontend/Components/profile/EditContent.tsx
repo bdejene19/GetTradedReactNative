@@ -3,11 +3,12 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { BackendTypes, TextResources } from '../../Common/GlobalDeclarations'
 import { Button, IconElement, Input, List, ListItem } from '@ui-kitten/components'
 import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks'
-import { FontSize } from '../../Common/GlobalStyles'
+import { FontSize, GenStyle } from '../../Common/GlobalStyles'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCircleXmark, faDeleteLeft, faEye, faEyeSlash, faSearch, faSearchLocation } from '@fortawesome/free-solid-svg-icons'
-import { removeLocation, setUserContact } from '../../ReduxStore/slices/user'
+import { removeLocation, removeWorkImage, setUserContact } from '../../ReduxStore/slices/user'
+import ImageUploader, { UploadProps } from '../ImageUploader'
 
 interface DeleteIcon {
     onDelete: (location: number) => Promise<void>;
@@ -18,41 +19,6 @@ const RenderInputSecure = (props: { secure?: boolean, onChange?: () => void}) =>
         <TouchableWithoutFeedback onPress={() => props?.onChange ? props?.onChange : props.secure}>
             <FontAwesomeIcon icon={props.secure ? faEye : faEyeSlash}/>
         </TouchableWithoutFeedback>
-    )
-}
-export const EditContact  = () =>  {
-    const user = useAppSelector((state) => ({
-        name: state.userStore.name,
-        email: state.userStore.email,
-        phone: state.userStore.phone,
-        password: state.userStore.password,
-        user_id: state.userStore.user_id
-      }))
-      const [contact, setContact] = useState<BackendTypes.User>(user);
-      const validateButton = () => {
-          let disableBtn = true
-          Object.keys(contact)?.map(key => {
-            if (contact[key] !== user[key]) {
-                disableBtn = false
-            }
-          })
-          return disableBtn;
-      }
-    return (
-        <View style={styles.contactContainer}>
-            <Text style={FontSize.pageHeader}>Edit Contact</Text>
-            <Input label={TextResources.FormStrings.NAME} value={contact.name} onChangeText={(name: string) => setContact({...contact, name: name})}/>
-            <Input label={TextResources.FormStrings.EMAIL} value={contact.email} onChangeText={(email: string) => setContact({...contact, email: email})}/>
-            <Input label={TextResources.FormStrings.PHONE} value={contact.phone} onChangeText={(phone: string) => setContact({...contact, phone: phone})}/>
-            <Input 
-                label={TextResources.FormStrings.PASSWORD} 
-                onChangeText={(password: string) => setContact({...contact, password: password})} 
-                secureTextEntry={true} 
-                accessoryRight={() => <RenderInputSecure onChange={() => {}} secure={true}/>}   
-                value={contact.password}
-            />
-            <Button appearance={'filled'} disabled={validateButton()}>Edit Contact</Button>
-        </View>
     )
 }
 export const EditContact  = () =>  {
@@ -110,7 +76,7 @@ export const EditContact  = () =>  {
                 accessoryRight={() => <RenderInputSecure onChange={() => {}} secure={true}/>}   
                 value={contact.password}
             />
-            <Button appearance={'filled'} disabled={validateButton()} onPress={() => editContactInfo(contact.user_id)}>Edit Contact</Button>
+            <Button appearance={'filled'} disabled={validateButton()}  style={[{position: 'absolute', bottom: 7, alignSelf: 'center',}, GenStyle.fullWidth]} onPress={() => editContactInfo(contact.user_id)}>Edit Contact</Button>
         </View>
     )
 }
@@ -176,24 +142,61 @@ export const EditLocations = () => {
 } 
 
 
-export const EditGallery = (props:{ imgs: BackendTypes.WorkImage[] }) => useMemo(() => {
+export const EditGallery = (props:{ imgs: BackendTypes.WorkImage[] }) => {
+    let { work_images, user_id } = useAppSelector((state) => ({
+        work_images: state.userStore.work_images,
+        user_id: state.userStore.user_id
+    }))
+    const dispatch = useAppDispatch();
 
-    fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.PROFILE}/user_id`)
+    const GenericUpload: BackendTypes.WorkImage = {
+        image_id: null,
+        file_path: null,
+        user_id: user_id
+    }
 
-    return (
-        <View>
-                        <Text style={{fontSize: 60}}>Edit Gallery</Text>
-
-            {props.imgs?.map(img => <Image source={{uri: img.file_path}} alt={img.file_path} />)}
-        </View>
-    )
-}, [])
+    const deleteWorkImage = async (image_id: number) => {
+        try {
+            const deleteImgReq = await fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.WORK_IMAGES}/${image_id}`, {
+                method: "DELETE",
+                body: JSON.stringify({image_id: image_id })
+            });
+            if (deleteImgReq.status === 200) {
+                const deleted = await deleteImgReq.json();
+                if (deleted) {
+                    dispatch(removeWorkImage({ image_id: image_id }))
+                }
+            }
+        } catch(e) {
+            console.log('Error deleting image', e);
+        }
+        
+    }
+    const availableUploads = 6 - work_images.length;
+    const extras = work_images.concat(new Array(availableUploads).fill(GenericUpload));
+ 
+    return useMemo(() => {
+        return (
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', flexGrow: 1, columnGap: 15, rowGap: 15, justifyContent: 'space-evenly'}}>
+    
+                {extras?.map((img, index) => {
+                    if (img.file_path !== null) {
+                        return <ImageUploader onDelete={() => deleteWorkImage(img.image_id)} imgID={img.image_id} defaultURI={img.file_path}  />
+                    } else {
+                        return <ImageUploader imgID={index + 1}/>
+                    }
+                })}
+            </View>
+        )
+    }, [])
+} 
   
 
 const styles = StyleSheet.create({
     contactContainer: {
         rowGap: 25,
         padding: 15,
+        height: '80%',
 
     }
 })

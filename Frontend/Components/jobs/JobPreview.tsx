@@ -2,6 +2,7 @@ import { View, Text,StyleSheet, ImageBackground} from 'react-native'
 import React from 'react'
 import { FontSize } from '../../Common/GlobalStyles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useIsLarge } from '../../Common/customHooks';
 
 interface JobPreviewProps {
     jobName: string;
@@ -11,14 +12,15 @@ interface JobPreviewProps {
     jobImg: string;
 }
 export default function JobPreview(props: JobPreviewProps) {
+    const fontSize = useIsLarge();
   return (
     <TouchableOpacity style={styles.previewContainer} onPress={() => {}}>
         <View style={styles.textContent}>
-            <Text style={[FontSize.subHeader]}>{props.jobName}</Text>
+            <Text style={[fontSize.subHeader]}>{props.jobName}</Text>
             <View style={styles.previewSubContainer}>
-                <Text>{props.jobType} |</Text>
-                <Text>{props.jobLocation} |</Text>
-                <Text>{props.posterName}</Text>
+                <Text style={[fontSize.regText]}>{props.jobType} |</Text>
+                <Text style={[fontSize.regText]}>{props.jobLocation} |</Text>
+                <Text style={[fontSize.regText]}>{props.posterName}</Text>
             </View>
         </View>
         <ImageBackground resizeMode='stretch' alt="job preview image" source={{uri: props.jobImg}} style={{height: 160}}/>
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
     },
     previewSubContainer: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
         columnGap: 10
     }
 })

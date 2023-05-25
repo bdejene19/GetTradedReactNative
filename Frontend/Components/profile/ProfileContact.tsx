@@ -18,9 +18,10 @@ interface ContactInfo {
 export default function ProfileContact(props: ContactInfo) {
   const fontSize = useIsLarge();
   const Bubble = (props: { text: string; }) => {
+
     return (
       <View style={styles.bubble}>
-        <Text>{props.text}</Text>
+        <Text style={fontSize.smallText}>{props.text}</Text>
       </View>
     )
   }
