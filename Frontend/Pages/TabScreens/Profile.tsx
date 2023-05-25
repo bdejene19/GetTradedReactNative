@@ -18,6 +18,8 @@ import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks'
 import { setUserStore } from '../../ReduxStore/slices/user'
 import { useIsLarge } from '../../Common/customHooks'
 import { Login } from '../StackScreens/Login'
+import { TextResources } from '../../Common/GlobalDeclarations'
+import ProfileDrawer from '../DrawerScreen/ProfileDrawer'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -83,10 +85,10 @@ export const ProfileScreens = ({ navigation, route }) => {
     }
     return (
       <DrawerContentScrollView>
-        <DrawerItemIcon isFocused={drawerItem === 'Profile' ? true : false} label={ProfileDrawerRoutes.PROFILE} icon={() => <FontAwesomeIcon icon={faHome}/>} onPress={() => handleDrawerChange(ProfileDrawerRoutes.PROFILE)}/>
-        <DrawerItemIcon isFocused={drawerItem === 'Edit Profile' ? true : false} label={'Edit Profile'} onPress={() => handleDrawerChange(ProfileDrawerRoutes.EDIT_PROFILE)} icon={() => <FontAwesomeIcon icon={faPenClip}/>}/>
-        <DrawerItemIcon isFocused={drawerItem === 'Settings' ? true : false} label={'Settings'} onPress={() => handleDrawerChange(ProfileDrawerRoutes.SETTINGS)} icon={() => <FontAwesomeIcon icon={faGears}/>}/>
-        <DrawerItemIcon isFocused={drawerItem === 'Sign Out' ? true : false} label={'Sign Out'} onPress={() => navigation.navigate("Login")} icon={() => <FontAwesomeIcon icon={faSignOut}/>}/>
+        <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.PROFILE ? true : false} label={ProfileDrawerRoutes.PROFILE} icon={() => <FontAwesomeIcon icon={faHome}/>} onPress={() => handleDrawerChange(ProfileDrawerRoutes.PROFILE)}/>
+        <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.EDIT_PROFILE ? true : false} label={ProfileDrawerRoutes.EDIT_PROFILE} onPress={() => handleDrawerChange(ProfileDrawerRoutes.EDIT_PROFILE)} icon={() => <FontAwesomeIcon icon={faPenClip}/>}/>
+        <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.SIGN_OUT ? true : false} label={ProfileDrawerRoutes.SETTINGS} onPress={() => handleDrawerChange(ProfileDrawerRoutes.SETTINGS)} icon={() => <FontAwesomeIcon icon={faGears}/>}/>
+        <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.SIGN_OUT ? true : false} label={ProfileDrawerRoutes.SIGN_OUT} onPress={() => navigation.navigate("Login")} icon={() => <FontAwesomeIcon icon={faSignOut}/>}/>
       </DrawerContentScrollView>
     )
   }
