@@ -16,6 +16,8 @@ import EditProfile from '../DrawerScreen/EditProfile'
 import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks'
 
 import { setUserStore } from '../../ReduxStore/slices/user'
+import { useIsLarge } from '../../Common/customHooks'
+import { Login } from '../StackScreens/Login'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -66,8 +68,9 @@ interface ProfileDrawerItem {
 const ProfileDrawers = createDrawerNavigator<ProfileDrawerParamList>();
 export const ProfileScreens = ({ navigation, route }) => {
   const [drawerItem, setDrawerItem] = useState("Profile");
-  const DrawerContent = () => {
-    const navigation = useNavigation<DrawerNavigationProp<ProfileDrawerParamList>>();
+  const fontSize = useIsLarge();
+  const DrawerContent = ({ navigation }) => {
+    const drawerNavigator = useNavigation<DrawerNavigationProp<ProfileDrawerParamList>>();
     const DrawerItemIcon = (props: ProfileDrawerItem) => {
       return (
         <DrawerItem label={props.label} focused={props.isFocused} onPress={props.onPress} icon={props.icon}></DrawerItem>
@@ -75,7 +78,7 @@ export const ProfileScreens = ({ navigation, route }) => {
     }
 
     const handleDrawerChange = (name: ProfileDrawerRoutes) => {
-      navigation.navigate(name);
+      drawerNavigator.navigate(name);
       setDrawerItem(name);
     }
     return (
@@ -83,13 +86,13 @@ export const ProfileScreens = ({ navigation, route }) => {
         <DrawerItemIcon isFocused={drawerItem === 'Profile' ? true : false} label={ProfileDrawerRoutes.PROFILE} icon={() => <FontAwesomeIcon icon={faHome}/>} onPress={() => handleDrawerChange(ProfileDrawerRoutes.PROFILE)}/>
         <DrawerItemIcon isFocused={drawerItem === 'Edit Profile' ? true : false} label={'Edit Profile'} onPress={() => handleDrawerChange(ProfileDrawerRoutes.EDIT_PROFILE)} icon={() => <FontAwesomeIcon icon={faPenClip}/>}/>
         <DrawerItemIcon isFocused={drawerItem === 'Settings' ? true : false} label={'Settings'} onPress={() => handleDrawerChange(ProfileDrawerRoutes.SETTINGS)} icon={() => <FontAwesomeIcon icon={faGears}/>}/>
-        <DrawerItemIcon isFocused={drawerItem === 'Sign Out' ? true : false} label={'Sign Out'} onPress={() => {}} icon={() => <FontAwesomeIcon icon={faSignOut}/>}/>
+        <DrawerItemIcon isFocused={drawerItem === 'Sign Out' ? true : false} label={'Sign Out'} onPress={() => navigation.navigate("Login")} icon={() => <FontAwesomeIcon icon={faSignOut}/>}/>
       </DrawerContentScrollView>
     )
   }
   return (
     <NavigationContainer independent={true}>
-      <ProfileDrawers.Navigator drawerContent={DrawerContent}>
+      <ProfileDrawers.Navigator drawerContent={() => <DrawerContent navigation={navigation}/>}>
         <ProfileDrawers.Screen 
           name={ProfileDrawerRoutes.PROFILE}
           children={() => <Profile navigation={navigation} route={route}/>}
@@ -98,6 +101,10 @@ export const ProfileScreens = ({ navigation, route }) => {
             headerTitle: ProfileDrawerRoutes.PROFILE,
             headerLeft: ProfileHeaderLeft,
             headerShadowVisible: false,
+            headerTitleAllowFontScaling: true,
+            headerTitleStyle: {
+              ...fontSize.subHeader
+            },
             headerStyle: {
                 backgroundColor: '#F47742',
             },  
@@ -110,6 +117,10 @@ export const ProfileScreens = ({ navigation, route }) => {
             headerTitle: ProfileDrawerRoutes.EDIT_PROFILE,
             headerLeft: ProfileHeaderLeft,
             headerShadowVisible: false,
+            headerTitleAllowFontScaling: true,
+            headerTitleStyle: {
+              ...fontSize.subHeader
+            },
             headerStyle: {
                 backgroundColor: '#F47742',
             },  
@@ -121,13 +132,22 @@ export const ProfileScreens = ({ navigation, route }) => {
             headerTitle: ProfileDrawerRoutes.SETTINGS,
             headerLeft: ProfileHeaderLeft,
             headerShadowVisible: false,
+            headerTitleAllowFontScaling: true,
+            headerTitleStyle: {
+              ...fontSize.subHeader
+            },
             headerStyle: {
                 backgroundColor: '#F47742',
             },  
           }}
           component={Settings}
         />
-     
+
+        <ProfileDrawers.Screen
+          name={ProfileDrawerRoutes.SIGN_OUT}
+          
+          component={Login}
+        />
       </ProfileDrawers.Navigator>
     </NavigationContainer>
   )

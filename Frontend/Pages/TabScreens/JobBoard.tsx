@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import ContractorTypeJobsBoard from '../StackScreens/ContractorTypeJobsBoard'
 import { JobsBoardParamList, JobsStackRoutes } from '../types'
 import { TextResources } from '../../Common/GlobalDeclarations'
+import { useIsLarge } from '../../Common/customHooks'
 
 const cardStyle: ViewStyle = {
     borderRadius: 15,
@@ -61,6 +62,7 @@ const Jobs = ({ navigation }) => {
 }
 const JobsStack = createNativeStackNavigator<JobsBoardParamList>();
 export default function JobBoard({ navigation, route }) {
+  const fontSize = useIsLarge();
   return (
     <NavigationContainer independent={true}>
       <JobsStack.Navigator>
@@ -71,6 +73,10 @@ export default function JobBoard({ navigation, route }) {
             headerBackTitleVisible: false,
             contentStyle: {
               backgroundColor: '#FFE19C'
+            },
+            headerTitleAllowFontScaling: true,
+            headerTitleStyle: {
+              ...fontSize.subHeader
             },
             headerStyle: {
               backgroundColor: '#F47742',
@@ -84,7 +90,11 @@ export default function JobBoard({ navigation, route }) {
             // const { jobType } = route.params
             const { jobType } = route.params
             return {
-              headerTitle: `${jobType} Jobs`
+              headerTitle: `${jobType} Jobs`,
+              headerTitleAllowFontScaling: true,
+              headerTitleStyle: {
+                ...fontSize.subHeader
+              },
             }
           }}
         />

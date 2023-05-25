@@ -4,12 +4,13 @@ import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture
 import { Input } from '@ui-kitten/components'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faPencilSquare, faPenToSquare, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { TextResources } from '../../Common/GlobalDeclarations'
+import { BackendTypes, TextResources } from '../../Common/GlobalDeclarations'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StackMsgRoutes, StackMsgParamList } from '../types'
 import ChatInteraction from '../StackScreens/ChatInteraction'
 import MessageThread from '../../Components/messages/MessageThread'
 import NewThreadModal from '../../Components/messages/NewThreadModal'
+import { useIsLarge } from '../../Common/customHooks'
 
 type ChatMessage = {
     name: string;
@@ -31,15 +32,18 @@ interface Message {
     text: string;
 }
 const MessageStackNavigator = createNativeStackNavigator<StackMsgParamList>();
+
 export default function MessageBoard({ navigation, route }) {
     const [msgModalOpen, setMsgModal] = useState(false);
     const [query, setQuery] = useState("")
-    const [threads, setThreads] = useState([]);
-    let userID = route.params.user_id;
+    const [threads, setThreads] = useState<BackendTypes.MessageThread[]>([]);
+    const fontSize = useIsLarge();
+    const userID = route.params.user_id;
     useEffect(() => {
         if (userID) {
             fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.MESSAGES}/${userID}`).then(res => res.json()).then(res => {
-                setThreads(res)
+                console.log('my res: ', res);
+                setThreads(res.inbox.message_thread)
             }).catch(err => console.log("my error : ", err))
         }
         
@@ -61,18 +65,14 @@ export default function MessageBoard({ navigation, route }) {
         fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.THREAD}/${threadID}`, {
             method: "DELETE",
         }).then(res => res.json()).then(res => {
-            threads.inbox.message_threads.forEach(thread => console.log(thread.thread_id))
-            let updatedThreads = threads.inbox.message_threads.filter(thread => {
+            threads.forEach(thread => console.log(thread.thread_id))
+            const updatedThreads = threads.filter(thread => {
                 if (thread.thread_id !== threadID) {
                     return thread
                 }
             })
 
-            setThreads({ 
-                inbox: {
-                    ...threads.inbox,
-                    message_threads: updatedThreads
-            }})
+            setThreads(updatedThreads)
 
 
         }).catch(err => console.log('my err: ', err))
@@ -90,7 +90,7 @@ export default function MessageBoard({ navigation, route }) {
                         onChangeText={(text: string) => setQuery(text)}
                     />
                 </TouchableWithoutFeedback>
-                {threads ? threads.inbox?.message_threads?.map(thread =>  {
+                {threads ? threads.map(thread =>  {
                     return (
                         <MessageThread 
                             key={thread.thread_id} 
@@ -124,6 +124,10 @@ export default function MessageBoard({ navigation, route }) {
                 headerStyle: {
                     backgroundColor: '#F47742',
                   },
+                headerTitleAllowFontScaling: true,
+                headerTitleStyle: {
+                ...fontSize.subHeader
+                },
                 headerLeft: WriteIcon,
                 headerBackTitleVisible: false,
             })}
@@ -133,7 +137,11 @@ export default function MessageBoard({ navigation, route }) {
             component={ChatInteraction}
             options={({navigation, route}) => {
                 return ({
-                    headerTitle: route.params.name
+                    headerTitle: route.params.name,
+                    headerTitleAllowFontScaling: true,
+                    headerTitleStyle: {
+                    ...fontSize.subHeader
+                    },
                 })
             }}
             />
