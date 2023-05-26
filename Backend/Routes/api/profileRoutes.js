@@ -29,7 +29,39 @@ router.get("/:user_id", async (req, res) => {
     res.status(404).json({ msg: "error retrieivng user from server", e });
   }
 });
+router.post("/newUser", async (req, res) => {
+  const user = req.body;
+  try {
+    const newUser = await User.create({
+      name: user.name,
+      email: user.email,
+      phone: user.email,
+      password: user.password,
+    });
 
+    if (!newUser) {
+      console.log("no user");
+      return res.status(500).json({ msg: "Unsuccessful in creating new user" });
+    }
+
+    const newImages = await WorkImage.bulkCreate(user.work_images);
+    if (!newImages) {
+      console.log("no images");
+      return res.status(500).json({
+        msg: "Unsuccessful creating User's related images in database",
+      });
+    }
+    const newLocations = await WorkLocation.bulkCreate([]);
+    if (!newLocations) {
+      console.log("no location");
+      return res.status(500).json({
+        msg: "Unsuccessful creating User's related locations in database",
+      });
+    }
+
+    return res.status(200).json(newUser);
+  } catch (e) {}
+});
 router.put("/:user_id", async (req, res) => {
   const user_id = req.params.user_id;
   const newContact = req.body;

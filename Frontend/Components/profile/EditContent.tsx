@@ -16,7 +16,7 @@ interface DeleteIcon {
 
 const RenderInputSecure = (props: { secure?: boolean, onChange?: () => void}) => {
     return (
-        <TouchableWithoutFeedback onPress={() => props?.onChange ? props?.onChange : props.secure}>
+        <TouchableWithoutFeedback onPress={props.onChange}>
             <FontAwesomeIcon icon={props.secure ? faEye : faEyeSlash}/>
         </TouchableWithoutFeedback>
     )
@@ -29,13 +29,14 @@ export const EditContact  = () =>  {
         password: state.userStore.password,
         user_id: state.userStore.user_id
       }))
+      const [isSecure, setSecure] = useState(true);
 
       const dispatch = useAppDispatch();
       const [contact, setContact] = useState<BackendTypes.User>(user);
       const validateButton = () => {
           let disableBtn = true
           Object.keys(contact)?.map(key => {
-            if (contact[key] !== user[key]) {
+            if (typeof contact[key] === 'string' && contact[key].trim() !== user[key]) {
                 disableBtn = false
             }
           })
@@ -72,8 +73,8 @@ export const EditContact  = () =>  {
             <Input 
                 label={TextResources.FormStrings.PASSWORD} 
                 onChangeText={(password: string) => setContact({...contact, password: password})} 
-                secureTextEntry={true} 
-                accessoryRight={() => <RenderInputSecure onChange={() => {}} secure={true}/>}   
+                secureTextEntry={isSecure} 
+                accessoryRight={() => <RenderInputSecure onChange={() => setSecure(!isSecure)} secure={isSecure}/>}   
                 value={contact.password}
             />
             <Button appearance={'filled'} disabled={validateButton()}  style={[{position: 'absolute', bottom: 7, alignSelf: 'center',}, GenStyle.fullWidth]} onPress={() => editContactInfo(contact.user_id)}>Edit Contact</Button>
@@ -172,7 +173,7 @@ export const EditGallery = (props:{ imgs: BackendTypes.WorkImage[] }) => {
         }
         
     }
-    const availableUploads = 6 - work_images.length;
+    const availableUploads = 6 - (work_images ? work_images.length : 0);
     const extras = work_images.concat(new Array(availableUploads).fill(GenericUpload));
  
     return useMemo(() => {

@@ -30,7 +30,7 @@ export default function ProfileContact(props: ContactInfo) {
       <Text style={[fontSize.subHeader, styles.header]}>{props.businessName}</Text>
       <Image style={[GenStyle.circle, styles.profileImgSize  ]}source={{uri: "https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png"}}/>
       <View style={styles.locations}>
-        {props?.workLocations.map((location) => <Bubble key={location.location_id} text={location.name}/>)}
+        {props.workLocations?.map((location) => <Bubble key={location.location_id} text={location.name}/>)}
       </View>
 
     </View>
