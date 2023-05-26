@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BackendTypes } from "../../Common/GlobalDeclarations";
 
-interface UserStore extends BackendTypes.User { 
+export interface UserStore extends BackendTypes.User { 
     work_images:  BackendTypes.WorkImage[], 
     work_locations: BackendTypes.WorkLocation[],
 }

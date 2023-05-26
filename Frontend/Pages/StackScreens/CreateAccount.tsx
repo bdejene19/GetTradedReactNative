@@ -17,6 +17,7 @@ interface Password {
 interface NewAccountProps extends Password {
     businessName: string;
     email: string;
+    phone: string;
     contractorTypes: string[];
 }
 const contractorCategories = ['Electrician', 'Carpenter', 'Painter', 'Plumber', 'Service Worker', 'Mechanic', 'LandScaping']
@@ -25,6 +26,7 @@ export const CreateAccount = ({ navigation }) => {
     const [newAccount, setNewAccount] = useState<NewAccountProps>({
         businessName: "",
         email: "",
+        phone: "",
         contractorTypes: [],
         pswd: "",
         repeat: "",
@@ -55,7 +57,12 @@ export const CreateAccount = ({ navigation }) => {
                 label={TextResources.FormStrings.BUSINESS}
                 onChangeText={(e: string) => setNewAccount({ ...newAccount, businessName: e })}
             /> 
-
+            <Input
+                placeholder={TextResources.FormStrings.PHONE}
+                label={TextResources.FormStrings.PHONE}
+                value={newAccount.phone}
+                onChangeText={text => setNewAccount({...newAccount, phone: text})}
+            />
             <View style={styles.mainContent}>
                 <Input
                     placeholder={TextResources.FormStrings.EMAIL}
@@ -82,7 +89,11 @@ export const CreateAccount = ({ navigation }) => {
                 />
             </View>
             <MultiBubbleSelect label={TextResources.CreateAccountText.typeSelection} key={'Contractor-Types'} selectLimit={3} bubbles={contractorCategories} style={{rowGap: 15}}/>
-            <Button style={[GenStyle.containerBottom, GenStyle.fullWidth]} disabled={verifyGoNext()} onPress={() => navigation.navigate('Work Locations', newAccount)}>Next</Button>
+            <Button style={[GenStyle.containerBottom, GenStyle.fullWidth]} disabled={verifyGoNext()} onPress={() => navigation.navigate('Work Locations', {
+                promise: () => new Promise((resolve, reject) => {
+                    return resolve(newAccount);
+                })
+            })}>Next</Button>
         </View>
     )
 }
