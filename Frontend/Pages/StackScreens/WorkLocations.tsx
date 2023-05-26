@@ -4,11 +4,15 @@ import * as ImagePicker from 'expo-image-picker';
 import { Button } from '@ui-kitten/components'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Locator } from '../../Common/Locator'
-import { TextResources } from '../../Common/GlobalDeclarations'
+import { BackendTypes, TextResources } from '../../Common/GlobalDeclarations'
 import ImageUploader from '../../Components/ImageUploader'
 import { GenStyle } from '../../Common/GlobalStyles'
 import { ImagePickerCanceledResult, ImagePickerResult } from 'expo-image-picker';
 import { useIsLarge } from '../../Common/customHooks';
+import { useAppDispatch } from '../../ReduxStore/slices/hooks';
+import { setUserStore, UserStore} from '../../ReduxStore/slices/user';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { StackLoginRoutes, StackRootParamList } from '../types';
 
 export type SelectedImage = {
   [key: number]: {
@@ -38,8 +42,9 @@ const initialPhotos: SelectedImage = {
 }
 export const ImageUploadContext = createContext({});
 export default function WorkLocations({ navigation, route}) {
-  const accountDetails = route.params;
   const fontSize = useIsLarge();
+  const dispatch = useAppDispatch();
+  const loginNav = useNavigation<NavigationProp<StackRootParamList>>()
   const [photos, setPhotos] = useState<SelectedImage>(initialPhotos);
   const pickPhoto = async (key: number) => {
     let photo = await ImagePicker.launchImageLibraryAsync({
@@ -52,6 +57,38 @@ export default function WorkLocations({ navigation, route}) {
     tempPhotos[key].uri = photo.assets[0].uri;
     console.log('temp photos uri: ', tempPhotos)
     setPhotos(tempPhotos);
+  }
+
+  const createAccount = async () => {
+    try {
+      const accountDetails = await route.params.promise();
+      const userInfo = {
+        name: accountDetails.businessName,
+        email: accountDetails.email,
+        phone: accountDetails.phone,
+        password: accountDetails.pswd,
+        work_images: [],
+        work_locations: [],
+    }
+      console.log('accou: ',)
+      const userCreated = await (await fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.PROFILE}/newUser`, {
+        method: "POST",
+        body: JSON.stringify(userInfo),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })).json().catch(e => console.log(e));
+
+      console.log('user: ', userCreated);
+      if (userCreated)  {
+        console.log('if hit')
+        // dispatch(setUserStore(userCreated))
+        loginNav.navigate(StackLoginRoutes.MAIN, userCreated);
+      }
+    } catch(e) {
+
+    }
+   
   }
   return (
     <ScrollView style={{rowGap: 40, height: '100%'}}>
@@ -68,7 +105,7 @@ export default function WorkLocations({ navigation, route}) {
           </ImageUploadContext.Provider>
         </View>
         <View style={[GenStyle.fullWidth, { marginVertical: 50, rowGap: 15}]}>
-          <Button>Finish</Button>
+          <Button onPress={createAccount}>Finish</Button>
           <Button appearance={'outline'}>Skip</Button>
         </View>
        

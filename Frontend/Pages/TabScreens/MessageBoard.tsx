@@ -36,22 +36,19 @@ const MessageStackNavigator = createNativeStackNavigator<StackMsgParamList>();
 export default function MessageBoard({ navigation, route }) {
     const [msgModalOpen, setMsgModal] = useState(false);
     const [query, setQuery] = useState("")
-    const [threads, setThreads] = useState<BackendTypes.MessageThread[]>([]);
+    const [threads, setThreads] = useState([]);
     const fontSize = useIsLarge();
     const userID = route.params.user_id;
     useEffect(() => {
         if (userID) {
             fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.MESSAGES}/${userID}`).then(res => res.json()).then(res => {
                 console.log('my res: ', res);
-                setThreads(res.inbox.message_thread)
+                setThreads(res.inbox.message_threads)
             }).catch(err => console.log("my error : ", err))
         }
         
     }, [userID])
-
-    useEffect(() => {
-
-    }, [threads])
+    
     const SearchIcon = () => (
         <FontAwesomeIcon  icon={faSearch}/>
     )
@@ -109,7 +106,7 @@ export default function MessageBoard({ navigation, route }) {
                             latestMessageDate={new Date(thread.chat_messages[0].createdAt)}
                         />
                     )
-                }) : null}
+                }) : <Text>hii</Text>}
                 <NewThreadModal modalVisible={msgModalOpen} setModal={setMsgModal}/>
             </View>
         )
