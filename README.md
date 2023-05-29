@@ -21,7 +21,7 @@ Install any main dependencies
 
 - `npm i`
 
-###Requirements:
+### Requirements:
 Currently, Contractor Contacts only supports iOS devices. This application is also a mobile app, which requires developers to have a simulator installed on their computer. On Mac, I suggest XCode.
 
 Additionally, the backend of this application is built with MySQL, requiring MySQL Server to be installed on your computer, and running while the app is running.
