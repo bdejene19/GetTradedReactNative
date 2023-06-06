@@ -3,16 +3,13 @@ import React, { useState, createContext, SetStateAction, Dispatch } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { Button } from '@ui-kitten/components'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Locator } from '../../Common/Locator'
-import { BackendTypes, TextResources } from '../../Common/GlobalDeclarations'
-import ImageUploader from '../../Components/ImageUploader'
-import { GenStyle } from '../../Common/GlobalStyles'
-import { ImagePickerCanceledResult, ImagePickerResult } from 'expo-image-picker';
-import { useIsLarge } from '../../Common/customHooks';
-import { useAppDispatch } from '../../ReduxStore/slices/hooks';
-import { setUserStore, UserStore} from '../../ReduxStore/slices/user';
+import { TextResources } from '../../../Common/GlobalDeclarations'
+import ImageUploader from '../../../Components/ImageUploader'
+import { GenStyle } from '../../../Common/GlobalStyles'
+import { useIsLarge } from '../../../Common/customHooks';
+import { useAppDispatch } from '../../../ReduxStore/slices/hooks';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { StackLoginRoutes, StackRootParamList } from '../types';
+import { StackLoginRoutes, StackRootParamList } from '../../types';
 
 export type SelectedImage = {
   [key: number]: {

@@ -1,10 +1,13 @@
 import { View, Text,StyleSheet, ImageBackground} from 'react-native'
 import React from 'react'
-import { FontSize } from '../../Common/GlobalStyles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useIsLarge } from '../../Common/customHooks';
+import { useNavigation } from '@react-navigation/native';
+import { JobsBoardParamList, JobsStackRoutes, StackRootParamList } from '../../Pages/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 interface JobPreviewProps {
+    jobPost_id: number;
     jobName: string;
     jobLocation: string;
     jobType: string;
@@ -13,8 +16,11 @@ interface JobPreviewProps {
 }
 export default function JobPreview(props: JobPreviewProps) {
     const fontSize = useIsLarge();
+    const jobStackNavigator = useNavigation<NativeStackNavigationProp<JobsBoardParamList>>()
   return (
-    <TouchableOpacity style={styles.previewContainer} onPress={() => {}}>
+    <TouchableOpacity style={styles.previewContainer} onPress={() => jobStackNavigator.navigate(JobsStackRoutes.FULL_JOB_DESCRIPTION, {
+        jobPost_id: props.jobPost_id
+    })}>
         <View style={styles.textContent}>
             <Text style={[fontSize.subHeader]}>{props.jobName}</Text>
             <View style={styles.previewSubContainer}>
@@ -35,13 +41,16 @@ const styles = StyleSheet.create({
         width: '100%',
         // minHeight: 125,
         // maxHeight: 275,
-        marginVertical: 5,
-        backgroundColor: 'green',
+        shadowOffset: { width: 3, height: 3},
+        shadowColor: 'black',
+        marginBottom: '5%',
+        shadowOpacity: 1,
     },
 
     textContent: {
         padding: '1.5%', 
         rowGap: 5,
+        backgroundColor: 'white',
     },
     previewSubContainer: {
         flexDirection: 'row',

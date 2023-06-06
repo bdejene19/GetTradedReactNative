@@ -7,7 +7,6 @@ import JobBoard from '../Pages/TabScreens/JobBoard';
 import { ProfileScreens } from '../Pages/TabScreens/Profile';
 import MessageBoard from '../Pages/TabScreens/MessageBoard';
 import { TabRootParamList, TabRoutes } from '../Pages/types';
-import { ProfileHeaderLeft, ProfileHeaderRight } from './tabscreenHeaders/ProfileHeader';
 
 const ProfileIcon = () => (
     <FontAwesomeIcon icon={faHome}/>

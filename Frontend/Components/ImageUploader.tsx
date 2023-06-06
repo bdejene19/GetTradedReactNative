@@ -1,14 +1,12 @@
 import { View, Text, ViewStyle, StyleProp, StyleSheet } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAdd, faImage, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ImageBackground } from 'react-native';
 import { GenStyle } from '../Common/GlobalStyles';
-import { ImageUploadContext } from '../Pages/StackScreens/WorkLocations';
-import { useAppDispatch } from '../ReduxStore/slices/hooks';
-import { removeWorkImage } from '../ReduxStore/slices/user';
+
 export type UploadProps = { 
   imgID: number;
   label?: string;

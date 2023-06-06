@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { Input } from '@ui-kitten/components'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faPencilSquare, faPenToSquare, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { BackendTypes, TextResources } from '../../Common/GlobalDeclarations'
+import { faPenToSquare, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { TextResources } from '../../Common/GlobalDeclarations'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StackMsgRoutes, StackMsgParamList } from '../types'
-import ChatInteraction from '../StackScreens/ChatInteraction'
+import ChatInteraction from '../StackScreens/Messages/ChatInteraction'
 import MessageThread from '../../Components/messages/MessageThread'
 import NewThreadModal from '../../Components/messages/NewThreadModal'
 import { useIsLarge } from '../../Common/customHooks'
@@ -113,35 +113,38 @@ export default function MessageBoard({ navigation, route }) {
     }
   return (
     <MessageStackNavigator.Navigator>
-        <MessageStackNavigator.Screen
-            name={StackMsgRoutes.MESSAGE_BOARD}
-            component={MessagePage}
-            options={({ navigation, route }) => ({
-                headerTitle: StackMsgRoutes.MESSAGE_BOARD, 
-                headerStyle: {
-                    backgroundColor: '#F47742',
-                  },
-                headerTitleAllowFontScaling: true,
-                headerTitleStyle: {
-                ...fontSize.subHeader
-                },
-                headerLeft: WriteIcon,
-                headerBackTitleVisible: false,
-            })}
-        /> 
-        <MessageStackNavigator.Screen
-            name={StackMsgRoutes.CHAT}
-            component={ChatInteraction}
-            options={({navigation, route}) => {
-                return ({
-                    headerTitle: route.params.name,
-                    headerTitleAllowFontScaling: true,
+        <MessageStackNavigator.Group screenOptions={{
+              headerTitleStyle: {
+              ...fontSize.subHeader
+              },
+        }}>
+
+            <MessageStackNavigator.Screen
+                name={StackMsgRoutes.MESSAGE_BOARD}
+                component={MessagePage}
+                options={({ navigation, route }) => ({
+                    headerTitle: StackMsgRoutes.MESSAGE_BOARD, 
+                    headerStyle: {
+                        backgroundColor: '#F47742',
+                    },
                     headerTitleStyle: {
                     ...fontSize.subHeader
                     },
-                })
-            }}
+                    headerLeft: WriteIcon,
+                })}
+            /> 
+            <MessageStackNavigator.Screen
+                name={StackMsgRoutes.CHAT}
+                component={ChatInteraction}
+                options={({navigation, route}) => {
+                    return ({
+                        headerTitle: route.params.name,
+                    
+                    })
+                }}
             />
+        </MessageStackNavigator.Group>
+
     </MessageStackNavigator.Navigator> 
    
   )

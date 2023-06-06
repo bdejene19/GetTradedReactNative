@@ -1,6 +1,6 @@
-import { CSSProperties, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { View, Text, TouchableOpacity} from 'react-native'
+import { View, Text } from 'react-native'
 
 import { StyleProp, ViewStyle } from 'react-native/types'
 

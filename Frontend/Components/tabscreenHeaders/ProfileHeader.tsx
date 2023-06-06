@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, Share } from 'react-native'
+import { View, StyleSheet, Share } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBars, faMessage, faShareFromSquare } from '@fortawesome/free-solid-svg-icons'
-import { GestureResponderEvent } from 'react-native'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { ProfileDrawerParamList } from '../../Pages/types'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 

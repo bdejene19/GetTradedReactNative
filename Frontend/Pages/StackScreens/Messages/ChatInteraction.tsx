@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { TextResources } from '../../Common/GlobalDeclarations'
-import MessageBubble from '../../Components/messages/MessageBubble';
+import { TextResources } from '../../../Common/GlobalDeclarations'
+import MessageBubble from '../../../Components/messages/MessageBubble';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Input } from '@ui-kitten/components';
-import { GenStyle } from '../../Common/GlobalStyles';
+import { GenStyle } from '../../../Common/GlobalStyles';
 
 export default function ChatInteraction({ navigation, route }) {
   const [chatHistory, setChatHistory] = useState([])

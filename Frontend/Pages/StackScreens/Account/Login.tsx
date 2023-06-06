@@ -1,12 +1,11 @@
 import { View, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { Button, Input } from '@ui-kitten/components'
-import { GenStyle, LightMode } from '../../Common/GlobalStyles'
-import { CommonTextInput } from '../../Common/CommonInput'
+import { GenStyle, LightMode } from '../../../Common/GlobalStyles'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import { TextResources } from '../../Common/GlobalDeclarations'
+import { TextResources } from '../../../Common/GlobalDeclarations'
 
 interface LoginForm {
   email: string;

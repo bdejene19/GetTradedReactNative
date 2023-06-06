@@ -83,4 +83,13 @@ export namespace BackendTypes {
         inbox_id: number;
         user_id: number;
     }
+
+    export type JobPost = {
+        job_id: number;
+        job_type: string;
+        description: string;
+        location: string;
+        imgLink: string;
+        user_id: number;
+    }
 }

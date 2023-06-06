@@ -9,12 +9,12 @@ import Main from "./Components/Main";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { CreateAccount } from "./Pages/StackScreens/CreateAccount";
-import WorkLocations from "./Pages/StackScreens/WorkLocations";
-import { Login } from "./Pages/StackScreens/Login";
+import WorkLocations from "./Pages/StackScreens/Account/WorkLocations";
+import { Login } from "./Pages/StackScreens/Account/Login";
 import { StackRootParamList, StackLoginRoutes } from "./Pages/types";
 import { Provider } from 'react-redux';
 import { store } from './ReduxStore/store';
+import { CreateAccount } from './Pages/StackScreens/Account/CreateAccount';
 
 const Stack = createNativeStackNavigator<StackRootParamList>();
 const DrawerMenuIcon = () => (

@@ -4,10 +4,11 @@ import { StyleSheet } from 'react-native'
 import JobCard from '../../Components/jobs/JobCard'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import ContractorTypeJobsBoard from '../StackScreens/ContractorTypeJobsBoard'
+import ContractorTypeJobsBoard from '../StackScreens/Jobs/ContractorTypeJobsBoard'
 import { JobsBoardParamList, JobsStackRoutes } from '../types'
 import { TextResources } from '../../Common/GlobalDeclarations'
 import { useIsLarge } from '../../Common/customHooks'
+import FullJobPost from '../StackScreens/Jobs/FullJobPost'
 
 const cardStyle: ViewStyle = {
     borderRadius: 15,
@@ -66,38 +67,43 @@ export default function JobBoard({ navigation, route }) {
   return (
     <NavigationContainer independent={true}>
       <JobsStack.Navigator>
-        <JobsStack.Screen 
-          name={JobsStackRoutes.JOBS_BOARD}
-          component={Jobs}
-          options={({navigation, route }) => ({
-            headerBackTitleVisible: false,
-            contentStyle: {
-              backgroundColor: '#FFE19C'
-            },
-            headerTitleAllowFontScaling: true,
-            headerTitleStyle: {
-              ...fontSize.subHeader
-            },
-            headerStyle: {
-              backgroundColor: '#F47742',
-            }
-          })}
-        />
-        <JobsStack.Screen
-          name={JobsStackRoutes.SPECIFIC_JOB_BOARD}
-          component={ContractorTypeJobsBoard}
-          options={({ navigation, route}) => {
-            // const { jobType } = route.params
-            const { jobType } = route.params
-            return {
-              headerTitle: `${jobType} Jobs`,
-              headerTitleAllowFontScaling: true,
-              headerTitleStyle: {
-                ...fontSize.subHeader
-              },
-            }
-          }}
-        />
+        <JobsStack.Group screenOptions={{ contentStyle: {
+            backgroundColor: '#FFE19C'
+          }, 
+          headerBackTitleVisible: false,
+          headerTitleStyle: {
+            ...fontSize.subHeader
+          },
+          headerBackTitle: "",
+          headerStyle: {
+            backgroundColor: '#F47742',
+          }
+              
+        }}>
+
+          <JobsStack.Screen 
+            name={JobsStackRoutes.JOBS_BOARD}
+            component={Jobs}
+          />
+          <JobsStack.Screen
+            name={JobsStackRoutes.SPECIFIC_JOB_BOARD}
+            component={ContractorTypeJobsBoard}
+            options={({ navigation, route}) => {
+              // const { jobType } = route.params
+              const { jobType } = route.params
+              return {
+                headerTitle: `${jobType} Jobs`,
+                headerTitleAllowFontScaling: true,
+              }
+            }}
+          />
+          <JobsStack.Screen
+            name={JobsStackRoutes.FULL_JOB_DESCRIPTION}
+            component={FullJobPost}
+            
+          />
+        </JobsStack.Group>
+ 
       </JobsStack.Navigator>
     </NavigationContainer>
     

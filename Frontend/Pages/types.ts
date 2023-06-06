@@ -8,7 +8,8 @@ export enum StackLoginRoutes {
 }
 export enum JobsStackRoutes {
     JOBS_BOARD = 'Jobs Board',
-    SPECIFIC_JOB_BOARD = 'Specific Job Board'
+    SPECIFIC_JOB_BOARD = 'Specific Job Board',
+    FULL_JOB_DESCRIPTION = "Full Job Description",
 }
 
 export enum ProfileDrawerRoutes {
@@ -49,6 +50,9 @@ export type JobsBoardParamList = {
     [JobsStackRoutes.JOBS_BOARD]: undefined,
     [JobsStackRoutes.SPECIFIC_JOB_BOARD]: {
         jobType: string,
+    },
+    [JobsStackRoutes.FULL_JOB_DESCRIPTION]: {
+        jobPost_id: number;
     }
 }
 

@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import BusinessContact from '../../Components/profile/BusinessContact'
 import GalleryScroll from '../../Components/profile/GalleryScroll'
@@ -14,12 +14,9 @@ import { faGears, faHome, faPenClip, faSignOut } from '@fortawesome/free-solid-s
 import Settings from '../DrawerScreen/Settings'
 import EditProfile from '../DrawerScreen/EditProfile'
 import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks'
-
 import { setUserStore } from '../../ReduxStore/slices/user'
 import { useIsLarge } from '../../Common/customHooks'
-import { Login } from '../StackScreens/Login'
-import { TextResources } from '../../Common/GlobalDeclarations'
-import ProfileDrawer from '../DrawerScreen/ProfileDrawer'
+import { Login } from '../StackScreens/Account/Login'
 
 const GalleryStyle = StyleSheet.create({
   rows: {
@@ -49,13 +46,13 @@ function Profile({ navigation, route }) {
         <ProfileContact workLocations={user.work_locations} businessName={user.name} email={user.email} phone={user.phone} profilePicture='https://snack-web-player.s3.us-west-1.amazonaws.com/v2/47/static/media/react-native-logo.79778b9e.png' ></ProfileContact>
         
         <BusinessContact email={user.email} phone={user.phone} linkedIn=''/>
-        <GalleryScroll 
+        {user.work_images ? <GalleryScroll 
           label='Our Work' 
           containerStyle={{...GalleryStyle.rows}} 
           galleryImgs={user.work_images} 
           scrollHorizontal={true} 
           imgCardStyle={{ padding: 100, height: 300, width: 350 }}
-        />
+        /> : null}
         <AboutBusiness content='My about content'/>
     </ScrollView>
   )
@@ -69,7 +66,7 @@ interface ProfileDrawerItem {
 }
 const ProfileDrawers = createDrawerNavigator<ProfileDrawerParamList>();
 export const ProfileScreens = ({ navigation, route }) => {
-  const [drawerItem, setDrawerItem] = useState("Profile");
+  const [drawerItem, setDrawerItem] = useState(ProfileDrawerRoutes.PROFILE);
   const fontSize = useIsLarge();
   const DrawerContent = ({ navigation }) => {
     const drawerNavigator = useNavigation<DrawerNavigationProp<ProfileDrawerParamList>>();
@@ -95,55 +92,41 @@ export const ProfileScreens = ({ navigation, route }) => {
   return (
     <NavigationContainer independent={true}>
       <ProfileDrawers.Navigator drawerContent={() => <DrawerContent navigation={navigation}/>}>
-        <ProfileDrawers.Screen 
-          name={ProfileDrawerRoutes.PROFILE}
-          children={() => <Profile navigation={navigation} route={route}/>}
-          options={{ 
-            headerRight: ProfileHeaderRight,
-            headerTitle: ProfileDrawerRoutes.PROFILE,
-            headerLeft: ProfileHeaderLeft,
-            headerShadowVisible: false,
-            headerTitleAllowFontScaling: true,
-            headerTitleStyle: {
-              ...fontSize.subHeader
-            },
-            headerStyle: {
-                backgroundColor: '#F47742',
-            },  
-          }}
-        />
-        <ProfileDrawers.Screen
-          name={ProfileDrawerRoutes.EDIT_PROFILE}
-          component={EditProfile}
-          options={{ 
-            headerTitle: ProfileDrawerRoutes.EDIT_PROFILE,
-            headerLeft: ProfileHeaderLeft,
-            headerShadowVisible: false,
-            headerTitleAllowFontScaling: true,
-            headerTitleStyle: {
-              ...fontSize.subHeader
-            },
-            headerStyle: {
-                backgroundColor: '#F47742',
-            },  
-          }}
-        />
-        <ProfileDrawers.Screen
-          name={ProfileDrawerRoutes.SETTINGS}
-          options={{ 
-            headerTitle: ProfileDrawerRoutes.SETTINGS,
-            headerLeft: ProfileHeaderLeft,
-            headerShadowVisible: false,
-            headerTitleAllowFontScaling: true,
-            headerTitleStyle: {
-              ...fontSize.subHeader
-            },
-            headerStyle: {
-                backgroundColor: '#F47742',
-            },  
-          }}
-          component={Settings}
-        />
+        <ProfileDrawers.Group screenOptions={{headerTitleAllowFontScaling: true, headerShadowVisible: false, headerStyle: {
+          backgroundColor: '#F47742',
+          ...fontSize.subHeader,
+
+        }}}>
+          <ProfileDrawers.Screen 
+            name={ProfileDrawerRoutes.PROFILE}
+            children={() => <Profile navigation={navigation} route={route}/>}
+            options={{ 
+              headerRight: ProfileHeaderRight,
+              headerTitle: ProfileDrawerRoutes.PROFILE,
+              headerLeft: ProfileHeaderLeft, 
+            }}
+          />
+          <ProfileDrawers.Screen
+            name={ProfileDrawerRoutes.EDIT_PROFILE}
+            component={EditProfile}
+            options={{ 
+              headerTitle: ProfileDrawerRoutes.EDIT_PROFILE,
+              headerLeft: ProfileHeaderLeft,
+              headerShadowVisible: false,
+               
+            }}
+          />
+
+          <ProfileDrawers.Screen
+            name={ProfileDrawerRoutes.SETTINGS}
+            options={{ 
+              headerTitle: ProfileDrawerRoutes.SETTINGS,
+              headerLeft: ProfileHeaderLeft,
+            }}
+            component={Settings}
+          />
+        </ProfileDrawers.Group>
+      
 
         <ProfileDrawers.Screen
           name={ProfileDrawerRoutes.SIGN_OUT}
