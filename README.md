@@ -24,13 +24,15 @@ Contractor Contacts is a full stack mobile app, built to help contract workers s
 
 ### Profile related profile pages 
 - Main Profile
-<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/3f381298-f338-430c-8622-29b4b8ef7337" width="2250"/>
+<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/3f381298-f338-430c-8622-29b4b8ef7337" width="250"/>
 
 - Drawer Options
+<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/3f381298-f338-430c-8622-29b4b8ef7337" width="250"/>
+
 ![ProfileDrawer](https://github.com/bdejene19/GetTradedReactNative/assets/67334768/8526f3d6-7975-44ab-8a30-25af5c324680)
 
 - Profile Settings
-![Settings](https://github.com/bdejene19/GetTradedReactNative/assets/67334768/cd96d949-fb24-46b2-96da-692bdf8b87c5)
+<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/3f381298-f338-430c-8622-29b4b8ef7337" width="250"/>
 
 - Editable Profile Options
 ![EditProfileOptions copy](https://github.com/bdejene19/GetTradedReactNative/assets/67334768/5d333c33-a7fe-4ade-8d5b-b5fe593af024)
