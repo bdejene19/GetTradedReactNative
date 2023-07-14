@@ -27,24 +27,21 @@ Contractor Contacts is a full stack mobile app, built to help contract workers s
 <img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/3f381298-f338-430c-8622-29b4b8ef7337" width="250"/>
 
 - Drawer Options
-<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/3f381298-f338-430c-8622-29b4b8ef7337" width="250"/>
-
-![ProfileDrawer](https://github.com/bdejene19/GetTradedReactNative/assets/67334768/8526f3d6-7975-44ab-8a30-25af5c324680)
+<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/8526f3d6-7975-44ab-8a30-25af5c324680" width="250"/>
 
 - Profile Settings
 <img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/3f381298-f338-430c-8622-29b4b8ef7337" width="250"/>
 
 - Editable Profile Options
-![EditProfileOptions copy](https://github.com/bdejene19/GetTradedReactNative/assets/67334768/5d333c33-a7fe-4ade-8d5b-b5fe593af024)
+<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/5d333c33-a7fe-4ade-8d5b-b5fe593af024" width="250"/>
+<video src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/5d333c33-a7fe-4ade-8d5b-b5fe593af024" width="250"/>
 
 ### Job Board Pages
-![JobBoard](https://github.com/bdejene19/GetTradedReactNative/assets/67334768/85d1b608-18dc-4920-83ff-a05694c48e97)
+https://github.com/bdejene19/GetTradedReactNative/assets/67334768/5d333c33-a7fe-4ade-8d5b-b5fe593af024
+<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/85d1b608-18dc-4920-83ff-a05694c48e97" width="250"/>
 
 ### Message Board pages
-![MessageBoard](https://github.com/bdejene19/GetTradedReactNative/assets/67334768/88d09b81-ab3a-4fb7-afa2-35d046f6b73b)
-
-
-
+<img src="https://github.com/bdejene19/GetTradedReactNative/assets/67334768/88d09b81-ab3a-4fb7-afa2-35d046f6b73b" width="250"/>
 
 ## Installation
 
