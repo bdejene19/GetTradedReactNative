@@ -8,7 +8,7 @@ import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCircleXmark, faDeleteLeft, faEye, faEyeSlash, faSearch, faSearchLocation } from '@fortawesome/free-solid-svg-icons'
 import { removeLocation, removeWorkImage, setUserContact } from '../../ReduxStore/slices/user'
-import ImageUploader, { UploadProps } from '../ImageUploader'
+import {ImageUploader, UploadProps} from '../ImageUploader'
 
 interface DeleteIcon {
     onDelete: (location: number) => Promise<void>;
@@ -158,16 +158,17 @@ export const EditGallery = (props:{ imgs: BackendTypes.WorkImage[] }) => {
 
     const deleteWorkImage = async (image_id: number) => {
         try {
-            const deleteImgReq = await fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.WORK_IMAGES}/${image_id}`, {
-                method: "DELETE",
-                body: JSON.stringify({image_id: image_id })
-            });
-            if (deleteImgReq.status === 200) {
-                const deleted = await deleteImgReq.json();
-                if (deleted) {
-                    dispatch(removeWorkImage({ image_id: image_id }))
-                }
-            }
+            console.log('delete action')
+            // const deleteImgReq = await fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.WORK_IMAGES}/${image_id}`, {
+            //     method: "DELETE",
+            //     body: JSON.stringify({image_id: image_id })
+            // });
+            // if (deleteImgReq.status === 200) {
+            //     const deleted = await deleteImgReq.json();
+            //     if (deleted) {
+            //         dispatch(removeWorkImage({ image_id: image_id }))
+            //     }
+            // }
         } catch(e) {
             console.log('Error deleting image', e);
         }
@@ -182,7 +183,7 @@ export const EditGallery = (props:{ imgs: BackendTypes.WorkImage[] }) => {
     
                 {extras?.map((img, index) => {
                     if (img.file_path !== null) {
-                        return <ImageUploader onDelete={() => deleteWorkImage(img.image_id)} imgID={img.image_id} defaultURI={img.file_path}  />
+                        return <ImageUploader  imgID={img.image_id} defaultURI={img.file_path}  />
                     } else {
                         return <ImageUploader imgID={index + 1}/>
                     }
