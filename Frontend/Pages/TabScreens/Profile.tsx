@@ -84,7 +84,7 @@ export const ProfileScreens = ({ navigation, route }) => {
       <DrawerContentScrollView>
         <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.PROFILE ? true : false} label={ProfileDrawerRoutes.PROFILE} icon={() => <FontAwesomeIcon icon={faHome}/>} onPress={() => handleDrawerChange(ProfileDrawerRoutes.PROFILE)}/>
         <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.EDIT_PROFILE ? true : false} label={ProfileDrawerRoutes.EDIT_PROFILE} onPress={() => handleDrawerChange(ProfileDrawerRoutes.EDIT_PROFILE)} icon={() => <FontAwesomeIcon icon={faPenClip}/>}/>
-        <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.SIGN_OUT ? true : false} label={ProfileDrawerRoutes.SETTINGS} onPress={() => handleDrawerChange(ProfileDrawerRoutes.SETTINGS)} icon={() => <FontAwesomeIcon icon={faGears}/>}/>
+        <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.SETTINGS ? true : false} label={ProfileDrawerRoutes.SETTINGS} onPress={() => handleDrawerChange(ProfileDrawerRoutes.SETTINGS)} icon={() => <FontAwesomeIcon icon={faGears}/>}/>
         <DrawerItemIcon isFocused={drawerItem === ProfileDrawerRoutes.SIGN_OUT ? true : false} label={ProfileDrawerRoutes.SIGN_OUT} onPress={() => navigation.navigate("Login")} icon={() => <FontAwesomeIcon icon={faSignOut}/>}/>
       </DrawerContentScrollView>
     )

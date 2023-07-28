@@ -44,26 +44,49 @@ export default function App() {
                   headerBackTitleVisible: false,
                   headerBackVisible: false,
                   headerBackButtonMenuEnabled: false,
+                  headerTitleStyle: {
+                    color: '#2a4560',
+                    fontSize: 20,
+                  },
+                  headerStyle: {
+                    backgroundColor: "#f8c806",
+                  }
                 })}
                 component={Login}
               />
 
-              <Stack.Screen
-                name={StackLoginRoutes.CREATE_ACCOUNT}
-                options={({ route, navigation }) => ({
-                  title: "Create Account",
-                  contentStyle: loginStyle.screenStyle,
-                })}
-                component={CreateAccount}
-              />
-              <Stack.Screen
-                name={StackLoginRoutes.WORK_LOCATIONS}
-                options={({ route, navigation }) => ({
-                  title: "Locations",
-                  contentStyle: loginStyle.screenStyle,
-                })}
-                component={WorkLocations}
-              />
+              <Stack.Group screenOptions={{
+                headerStyle: {
+                  backgroundColor: "#f8c806"
+                },
+                headerTitleStyle: {
+                  color: '#2a4560',
+                  fontSize: 20,
+                },
+                headerBackTitleVisible: false,
+                headerShadowVisible: false,
+              }}>
+                <Stack.Screen
+                  name={StackLoginRoutes.CREATE_ACCOUNT}
+                  options={({ route, navigation }) => ({
+                    title: "Create Account",
+                    contentStyle: {
+                      ...loginStyle.screenStyle,
+                      backgroundColor: '#647ca9'
+                    },
+                  })}
+                  component={CreateAccount}
+                />
+                <Stack.Screen
+                  name={StackLoginRoutes.WORK_LOCATIONS}
+                  options={({ route, navigation }) => ({
+                    title: "Locations",
+                    contentStyle: loginStyle.screenStyle,
+                  })}
+                  component={WorkLocations}
+                />
+              </Stack.Group>
+             
               <Stack.Screen
                 name={StackLoginRoutes.MAIN}
                 options={({ route, navigation }) => ({

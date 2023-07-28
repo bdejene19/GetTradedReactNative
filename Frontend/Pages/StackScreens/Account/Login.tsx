@@ -6,11 +6,11 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { TextResources } from '../../../Common/GlobalDeclarations'
+import QuickSignIn from '../../../Components/signIn/QuickSignIn'
+import { handleform } from './helpers/methods'
+import { LoginForm } from './helpers/types'
 
-interface LoginForm {
-  email: string;
-  password: string;
-}
+
 export const Login = ({ navigation }) => {
   const [isSecure, setSecure] = useState(true);
   const [login, setLogin] = useState<LoginForm>({
@@ -18,26 +18,7 @@ export const Login = ({ navigation }) => {
     password: "",
     
   })
-  const handleLogin = async () => {
-    if (login.email.length !== 0 && login.password.length !== 0) {
-      fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.LOGIN}`, {
-        method: "POST",
-        body: JSON.stringify(login),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(res => {
-        if (res.status === 200) {
-          return res.json()
-        }
-
-        return res
-      }).then(res => {
-        navigation.navigate('Main', res)
-      }).catch(err => console.log('error'));
-    }
-  
-  }
+ 
   const RenderInputSecure = (props: { secure?: boolean, onChange?: () => void}) => {
     return (
         <TouchableWithoutFeedback onPress={props?.onChange}>
@@ -52,6 +33,7 @@ export const Login = ({ navigation }) => {
         placeholder='jdoe@gmail.com' 
         onChangeText={(text: string) => setLogin({ ...login, email: text })}
         value={login.email}
+        testID={'username'}
         
       />
       <Input 
@@ -61,14 +43,16 @@ export const Login = ({ navigation }) => {
         onChangeText={(text: string) => setLogin({ ...login, password: text })}
         value={login.password}     
         autoCapitalize={"none"}
+        testID={"loginPswd"}
         accessoryRight={() => <RenderInputSecure secure={isSecure} onChange={() => setSecure(!isSecure)}/>}
       />
 
         {/* <CommonTextInput label='Email' placeholder='jdoe@gmail.com' onChange={() => {}} />
         <CommonTextInput label='Password' secureEntry={true} placeholder='GetTraded123' onChange={() => {}} /> */}
-        <Button appearance={'filled'} style={GenStyle.fullWidth} onPress={handleLogin}>Login</Button>
-        <Button appearance={'outline'} style={GenStyle.fullWidth} onPress={() => navigation.navigate("Create Account")}>Create Account</Button>
+        <Button appearance={'filled'} testID={"loginBtn"} style={GenStyle.fullWidth} onPress={() => handleform(login, navigation)}>Login</Button>
+        <Button appearance={'outline'} testID={"registerBtn"} style={GenStyle.fullWidth} onPress={() => navigation.navigate("Create Account")}>Create Account</Button>
         <View style={styles.horizontalRule}/>
+
     </View>
   )
 }

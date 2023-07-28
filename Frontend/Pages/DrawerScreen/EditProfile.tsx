@@ -9,17 +9,14 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { EditContact, EditGallery, EditLocations } from '../../Components/profile/EditContent'
 import { useAppSelector } from '../../ReduxStore/slices/hooks'
 import { useIsLarge } from '../../Common/customHooks'
+import { HeaderEditProps } from './helpers/types'
 
 
-interface HeaderEditProps {
-    title: string;
-    icon: IconProp;
-    onEdit: () => void;
-}
+
 interface ModalProps {
     modalFor: string;
 }
-export default function EditProfile(props: BackendTypes.User) {
+export default function EditProfile() {
     const [isOpen, setIsOpen] = useState(false);
     const [modalSelected, setModal] = useState("");
     const [modalContent, setContent] = useState<JSX.Element>(<View></View>)

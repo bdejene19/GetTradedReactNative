@@ -1,21 +1,18 @@
 import { View, Text } from 'react-native'
-import React, { useState, createContext, SetStateAction, Dispatch } from 'react'
+import React, { useState, createContext, SetStateAction, Dispatch, useEffect, useRef } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { Button } from '@ui-kitten/components'
 import { ScrollView } from 'react-native-gesture-handler'
 import { TextResources } from '../../../Common/GlobalDeclarations'
-import ImageUploader from '../../../Components/ImageUploader'
 import { GenStyle } from '../../../Common/GlobalStyles'
 import { useIsLarge } from '../../../Common/customHooks';
-import { useAppDispatch } from '../../../ReduxStore/slices/hooks';
+import { useAppDispatch, useAppSelector } from '../../../ReduxStore/slices/hooks';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { StackLoginRoutes, StackRootParamList } from '../../types';
+import { ImageUploader } from '../../../Components/ImageUploader';
+import { SelectedImage, photoContextType } from './helpers/types';
+import { createAccount } from './helpers/methods';
 
-export type SelectedImage = {
-  [key: number]: {
-    uri: string;
-  };
-}
 
 const initialPhotos: SelectedImage = {
   1: {
@@ -37,56 +34,32 @@ const initialPhotos: SelectedImage = {
     uri: "",
   },
 }
-export const ImageUploadContext = createContext({});
+
+export const ImageUploadContext = createContext<photoContextType>({});
 export default function WorkLocations({ navigation, route}) {
   const fontSize = useIsLarge();
-  const dispatch = useAppDispatch();
   const loginNav = useNavigation<NavigationProp<StackRootParamList>>()
   const [photos, setPhotos] = useState<SelectedImage>(initialPhotos);
-  const pickPhoto = async (key: number) => {
-    let photo = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    })
-    let tempPhotos = photos;
-    tempPhotos[key].uri = photo.assets[0].uri;
-    console.log('temp photos uri: ', tempPhotos)
-    setPhotos(tempPhotos);
-  }
 
-  const createAccount = async () => {
-    try {
-      const accountDetails = await route.params.promise();
-      const userInfo = {
-        name: accountDetails.businessName,
-        email: accountDetails.email,
-        phone: accountDetails.phone,
-        password: accountDetails.pswd,
-        work_images: [],
-        work_locations: [],
-    }
-      console.log('accou: ',)
-      const userCreated = await (await fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.PROFILE}/newUser`, {
-        method: "POST",
-        body: JSON.stringify(userInfo),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })).json().catch(e => console.log(e));
-
-      console.log('user: ', userCreated);
-      if (userCreated)  {
-        console.log('if hit')
-        // dispatch(setUserStore(userCreated))
-        loginNav.navigate(StackLoginRoutes.MAIN, userCreated);
+  const convertToSchema = (photos: SelectedImage) => {
+    let temp = [];
+    Object.keys(photos).map(photo => {
+      if (photos[photo].uri !== "") {
+        temp.push({
+          file_path: photos[photo].uri
+        })
       }
-    } catch(e) {
+    });
+    
+   return temp;
+  }
+  const createNewAccount = async () => {
+    let created = await createAccount(route.params.promise(), photos);
+    created ? loginNav.navigate(StackLoginRoutes.MAIN, created) : console.log(created);
 
-    }
    
   }
+
   return (
     <ScrollView style={{rowGap: 40, height: '100%'}}>
         {/* <Locator label={TextResources.CreateAccountText.locations} location={''}/> */}
@@ -102,7 +75,7 @@ export default function WorkLocations({ navigation, route}) {
           </ImageUploadContext.Provider>
         </View>
         <View style={[GenStyle.fullWidth, { marginVertical: 50, rowGap: 15}]}>
-          <Button onPress={createAccount}>Finish</Button>
+          <Button onPress={createNewAccount}>Finish</Button>
           <Button appearance={'outline'}>Skip</Button>
         </View>
        

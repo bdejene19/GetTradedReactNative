@@ -43,8 +43,14 @@ router.post("/newUser", async (req, res) => {
       console.log("no user");
       return res.status(500).json({ msg: "Unsuccessful in creating new user" });
     }
-
-    const newImages = await WorkImage.bulkCreate(user.work_images);
+    const imgsWithID = user.work_images?.map((img) => ({
+      ...img,
+      user_id: newUser.user_id,
+    }));
+    const newImages = await WorkImage.bulkCreate(imgsWithID).catch((err) =>
+      console.log("my error: ", err)
+    );
+    console.log("my images: ", newImages);
     if (!newImages) {
       console.log("no images");
       return res.status(500).json({

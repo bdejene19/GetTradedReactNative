@@ -5,12 +5,9 @@ import { FontSize } from '../../Common/GlobalStyles';
 import { toggleDark, toggleLarge } from "../../ReduxStore/slices/settings"
 import { useAppDispatch, useAppSelector } from '../../ReduxStore/slices/hooks';
 import { useIsLarge } from '../../Common/customHooks';
+import { SwitchOption } from './helpers/types';
 
-interface SwitchOption {
-    title: string;
-    isEnabled: boolean;
-    onSwitchChange: () => void;
-}
+
 export default function Settings() {
     const { isDark, isLarge } = useAppSelector((state) => ({
       isDark: state.settingStore.isDark,
