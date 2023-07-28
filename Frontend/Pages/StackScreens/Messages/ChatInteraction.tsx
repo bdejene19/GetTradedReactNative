@@ -5,24 +5,13 @@ import MessageBubble from '../../../Components/messages/MessageBubble';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Input } from '@ui-kitten/components';
 import { GenStyle } from '../../../Common/GlobalStyles';
+import { useChatThread } from '../../../Common/customHooks';
 
 export default function ChatInteraction({ navigation, route }) {
-  const [chatHistory, setChatHistory] = useState([])
   const [text, setText] = useState("");
   const threadID = route.params.thread_id;
-  console.log('chat: ', route.params);
-
-  useEffect(() => {
-    try {
-      if (threadID) {
-        fetch(`${TextResources.API_ROUTES.HOST}/${TextResources.API_ROUTES.THREAD}/${threadID}`).then(res => res.json()).then(res => {
-          setChatHistory(res.chat_messages);
-        });
-      }
-    } catch(err) {
-
-    }
-  }, [])
+  const chatHistory = useChatThread(threadID);
+  
   return (
     <View style={styles.chatWrapper}>
       <ScrollView scrollEnabled={true} horizontal={false}>

@@ -1,3 +1,5 @@
+import { JobPreviewProps } from "../Components/jobs/JobPreview";
+
 export enum StackLoginRoutes {
     CREATE_ACCOUNT = 'Create Account',
     LOGIN = 'Login',
@@ -52,7 +54,7 @@ export type JobsBoardParamList = {
         jobType: string,
     },
     [JobsStackRoutes.FULL_JOB_DESCRIPTION]: {
-        jobPost_id: number;
+        job: JobPreviewProps;
     }
 }
 
